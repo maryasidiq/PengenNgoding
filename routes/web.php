@@ -22,12 +22,13 @@ Route::get('/beranda', [berandaController::class,'index',] , )->name('beranda');
 // })->name('artikel');
 
 
+
 // Route Artikel
 Route::get('/artikel', [artikelController::class,'index',] , )->name('artikel');
 Route::get('/artikel/{id}', [artikelController::class, 'detail'])->name('artikel.detail');
 Route::get('/artikel/{id}/bab/{bab_id}', [artikelController::class, 'bab'])->name('artikel.bab');
-Route::get('/artikel/kategori', [ArtikelController::class, 'kategori'])->name('artikel.kategori');
-Route::get('/artikel/kategori/{kategori}', [ArtikelController::class, 'kontenKategori'])->name('konten_kategori');
+Route::get('/artikel/kategori', [artikelController::class, 'kategori'])->name('artikel.kategori');
+Route::get('/artikel/kategori/{kategori}', [artikelController::class, 'kontenKategori'])->name('konten_kategori');
 Route::get('/artikel/kategori/{kategori}', [artikelController::class, 'kontenKategori'])->name('artikel.kategori.konten');
 
 
@@ -46,26 +47,26 @@ Route::get('/video', function () {
     return view('video');
 })->name('video');
 
-Route::get('/tips', function () {
-    return view('tips');
-})->name('tips');
+// Route::get('/tips', function () {
+//     return view('tips');
+// })->name('tips');
 
 Route::get('/ttg_kami', function () {
     return view('ttg_kami');
 })->name('ttg_kami');
 
 // routes artikel
-Route::get('/artikel/1', function () {
-    return view('artikel/1');
-})->name('artikel/1');
+// Route::get('/artikel/1', function () {
+//     return view('artikel/1');
+// })->name('artikel/1');
 
-Route::get('/artikel/2', function () {
-    return view('artikel/2');
-})->name('artikel/2');
+// Route::get('/artikel/2', function () {
+//     return view('artikel/2');
+// })->name('artikel/2');
 
-Route::get('/artikel/kategori', function () {
-    return view('artikel/kategori');
-})->name('artikel/kategori');
+// Route::get('/artikel/kategori', function () {
+//     return view('artikel/kategori');
+// })->name('artikel/kategori');
 
 // routes video
 Route::get('/video/1', function () {
