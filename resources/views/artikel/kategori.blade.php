@@ -65,7 +65,7 @@
                         $jumlah = \App\Models\artikelModel::where('kategori', $item->kategori)->count();
                     @endphp
 
-                    <a href="{{ route('konten_kategori', ['kategori' => $item->kategori]) }}"
+                    <a href="{{ route('artikel.kategori.konten', ['kategori' => $item->kategori]) }}"
                         class="border border-slate-300 rounded-md px-3 py-1 flex items-center space-x-2 hover:bg-teal-50 hover:border-teal-600 transition focus:outline-none focus:ring-2 focus:ring-teal-600">
                         <span>{{ $item->kategori }}</span>
                         <span class="bg-slate-200 text-slate-600 rounded-full px-2 py-0.5 text-xs select-none">

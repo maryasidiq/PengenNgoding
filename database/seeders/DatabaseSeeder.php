@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             ArtikelContentSeeder::class,
             TipsSeeder::class,
             TipsContentSeeder::class,
+            VideoSeeder::class,
+            VideoContentSeeder::class,
 
 
         ]);

@@ -8,9 +8,9 @@ class tipsContentModel extends Model
 {
     protected $table = "tips_content";
 
-    public function artikel()
+    public function tips()
     {
-        return $this->belongsTo(artikelModel::class, 'tips_id');
+        return $this->belongsTo(tipsModel::class, 'tips_id');
     }
 
 

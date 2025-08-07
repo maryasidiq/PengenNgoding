@@ -214,12 +214,9 @@
 
             <!-- Video Player and Description -->
             <div class="mb-6">
-                <div class="aspect-video bg-gray-300 rounded-md overflow-hidden mb-4">
-                    <!-- Placeholder for video player -->
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/uIkXrHCSank" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                </div>
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ $video->video_id }}"
+                    frameborder="0" allowfullscreen>
+                </iframe>
                 <h1 class="text-xl font-bold text-gray-800 mb-2">Judul Video Utama</h1>
                 <p class="text-gray-600 text-sm mb-4">Deskripsi singkat tentang video ini. Ini adalah tempat untuk
                     menjelaskan isi video secara ringkas dan menarik.</p>

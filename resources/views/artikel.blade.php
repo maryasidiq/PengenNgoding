@@ -90,8 +90,7 @@
               <div class="flex flex-col text-sm md:text-base flex-grow">
                 <h3 class="font-semibold text-gray-900 mb-1">Frontend</h3>
                 <p class="text-gray-700 line-clamp-3">
-                  Baca tutorial frontend development seperti HTML, CSS, JavaScript, React, dan teknologi tampilan web
-                  lainnya.
+                  Baca tutorial frontend development seperti HTML, CSS, JavaScript, React, dan teknologi tampilan web lainnya.
                 </p>
               </div>
               <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2"
@@ -102,7 +101,7 @@
           </a>
 
           <!-- Card 2 - Android -->
-          <a href="{{ route('artikel.kategori.konten', 'android') }}" class="block">
+          <a href="{{ route('artikel.kategori.konten', 'backend') }}" class="block">
             <article tabindex="0" role="article" aria-label="Android Programming"
               class="flex items-center gap-4 rounded-lg bg-gray-100 p-5 cursor-pointer hover:bg-gray-200 transition-shadow custom-shadow focus:ring-2 focus:ring-blue-500 focus:outline-none">
               <div class="flex-shrink-0 w-16 h-16 rounded-md overflow-hidden">
@@ -110,10 +109,9 @@
                   class="w-full h-full object-cover" />
               </div>
               <div class="flex flex-col text-sm md:text-base flex-grow">
-                <h3 class="font-semibold text-gray-900 mb-1">Android</h3>
+                <h3 class="font-semibold text-gray-900 mb-1">Backend</h3>
                 <p class="text-gray-700 line-clamp-3">
-                  Pelajari cara membuat aplikasi Android dengan Java, Kotlin, XML layout, Android Studio, dan tools
-                  lainnya.
+                  Pelajari cara membuat backend dengan PHP, MySQL, Java, Python dan tools lainnya.
                 </p>
               </div>
               <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2"

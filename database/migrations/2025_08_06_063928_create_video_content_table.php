@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('video_content', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('video_id');
+            $table->string('judul', 150);
+            $table->text('deskripsi')->nullable();
+            $table->string('gambar', 255);
+            $table->string('video_yt', 255);
+            $table->timestamps(); // Tambahkan ini
+
+            $table->foreign('video_id')
+                  ->references('id')
+                  ->on('video')
+                  ->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+
+    public function down(): void
+    {
+        Schema::dropIfExists('video_content');
+    }
+};

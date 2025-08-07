@@ -11,7 +11,7 @@ class tipsController extends Controller
 {
     public function index()
     {
-        $tipsUtama = tipsContentModel::all();
+        $tipsUtama = tipsModel::all();
 
         $kontenTerbaru = tipsContentModel::with('tips')
             ->orderBy('created_at', 'desc')
