@@ -8,4 +8,9 @@ class clientModel extends Model
 {
     //
     protected $table = "clinet";
+
+    protected $fillable = [
+        'nama',
+        'gambar'
+    ];
 }
