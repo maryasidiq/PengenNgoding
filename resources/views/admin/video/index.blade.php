@@ -40,7 +40,7 @@
                             @forelse($videos as $index => $video)
                                 <tr>
                                     <td>{{ $videos->firstItem() + $index }}</td>
-                                    <td><a href="{{ route('admin.video.edit', $video) }}"
+                                    <td><a href="{{ route('admin.video.konten', $video) }}"
                                             class="text-blue-600 hover:underline">{{ $video->nama }}</a></td>
                                     <td>{{ $video->kategori }}</td>
                                     <td>{{ $video->judul }}</td>
