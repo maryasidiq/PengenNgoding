@@ -90,7 +90,8 @@
               <div class="flex flex-col text-sm md:text-base flex-grow">
                 <h3 class="font-semibold text-gray-900 mb-1">Frontend</h3>
                 <p class="text-gray-700 line-clamp-3">
-                  Baca tutorial frontend development seperti HTML, CSS, JavaScript, React, dan teknologi tampilan web lainnya.
+                  Baca tutorial frontend development seperti HTML, CSS, JavaScript, React, dan teknologi tampilan web
+                  lainnya.
                 </p>
               </div>
               <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2"
@@ -167,8 +168,9 @@
         @foreach ($kontenTerbaru as $konten)
       <a href="{{ route('artikel.bab', ['id' => $konten->artikel->id, 'bab_id' => $konten->id]) }}"
         class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
-        <img src="{{ url($konten->gambar) }}" class="w-full h-48 object-cover"
-        alt="{{ $konten->artikel->nama }}">
+        <img
+        src=" {{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
+        class="w-full h-48 object-cover" alt="{{ $konten->artikel->nama }}">
         <div class="p-4 flex flex-col gap-2">
         <h3 class="text-sm font-semibold text-gray-800">{{ $konten->artikel->judul }} - {{ $konten->judul }}</h3>
         <p class="text-sm text-gray-600">{{ Str::limit(strip_tags($konten->deskripsi), 100) }}</p>
@@ -235,7 +237,9 @@
       <article class="flex flex-col items-center text-center hover:scale-110 transition">
         <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
         class="mb-3 flex items-center justify-center drop-shadow">
-        <img src="{{ url($artikel->gambar) }}" alt="{{ $artikel->nama }} Icon" class="w-12 h-12 select-none">
+        <img
+          src="{{ filter_var($artikel->gambar, FILTER_VALIDATE_URL) ? $artikel->gambar : asset('storage/' . $artikel->gambar) }}"
+          alt="{{ $artikel->nama }} Icon" class="w-12 h-12 select-none">
         </a>
         <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
         class="text-sm font-semibold text-gray-900 mb-1 hover:underline">

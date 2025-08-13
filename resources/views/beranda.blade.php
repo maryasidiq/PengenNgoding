@@ -245,7 +245,8 @@
                         <div class="swiper-slide text-center">
                             <div
                                 class="bg-white rounded-2xl p-4 shadow-md w-36 h-36 mx-auto flex items-center justify-center">
-                                <img src="{{ url($client->gambar) }}" alt="Parkland" class="h-20 object-contain" />
+                                <img src="{{ asset('storage/' . $client->gambar) }}" alt="Parkland"
+                                    class="h-20 object-contain" />
                             </div>
                             <p class="mt-2 text-xs font-semibold text-sky-600 uppercase tracking-wide">{{$client->nama}}</p>
                         </div>
@@ -305,7 +306,7 @@
                 @foreach ($portofolios as $portofolio)
                     <a href="{{ route('portofolio.show', $portofolio->id) }}"
                         class="relative group rounded-lg overflow-hidden shadow-lg">
-                        <img src="{{ $portofolio->gambar ?? 'https://via.placeholder.com/400x300?text=No+Image' }}"
+                        <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
                             alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover">
                         <div
                             class="absolute inset-0 bg-[#07345B]/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">

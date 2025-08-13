@@ -52,6 +52,18 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="video_yt">Link YouTube</label>
+                                <input type="url" name="video_yt" id="video_yt"
+                                    class="form-control @error('video_yt') is-invalid @enderror"
+                                    value="{{ old('video_yt', $konten->video_yt) }}"
+                                    placeholder="https://www.youtube.com/watch?v=...">
+                                <small class="form-text text-muted">Masukkan link YouTube</small>
+                                @error('video_yt')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save"></i> Update Konten
                                 </button>

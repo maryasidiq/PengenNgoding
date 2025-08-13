@@ -28,8 +28,8 @@
                     <div class="card shadow-sm">
                         <div class="card-body text-center">
                             <div class="mb-3">
-                                @if($video->thumbnail)
-                                    <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->title }}"
+                                @if($video->gambar)
+                                    <img src="{{ asset('storage/' . $video->gambar) }}" alt="{{ $video->title }}"
                                         class="img-fluid rounded" style="max-height: 150px; width: auto;">
                                 @else
                                     <div class="bg-secondary rounded d-flex align-items-center justify-content-center"
@@ -38,16 +38,14 @@
                                     </div>
                                 @endif
                             </div>
-                            <h6 class="card-title mb-2">
-                                <a href="{{ route('video.konten', $video) }}">{{ $video->nama }}</a>
-                            </h6>
+                            <h6 class="card-title mb-2">{{ $video->title }}</h6>
                             <p class="text-muted small">{{ Str::limit($video->description, 50) }}</p>
 
                             <div class="btn-group btn-group-sm">
                                 <a href="{{ route('admin.video.edit', $video) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ route('video.konten', $video) }}" class="btn btn-info btn-sm">
+                                <a href="{{ route('admin.video.show', $video) }}" class="btn btn-info btn-sm">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <form action="{{ route('admin.video.destroy', $video) }}" method="POST" class="d-inline"

@@ -54,15 +54,15 @@
             class="pt-24 scroll-mt-24 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
             <!-- 1 -->
             @foreach ($portofolios as $portofolio)
-            <a href="{{ route('portofolio.show', $portofolio->id) }}"
-                class="block bg-white rounded-md overflow-hidden shadow-sm hover:shadow-lg transition hover:scale-105">
-                <img src="{{ $portofolio->gambar }}"
-                    alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover">
-                <div class="px-4 py-3">
-                    <h3 class="text-sm font-semibold text-gray-900 mb-1">{{ $portofolio->judul }}</h3>
-                </div>
-            </a>
-        @endforeach
+                <a href="{{ route('portofolio.show', $portofolio->id) }}"
+                    class="block bg-white rounded-md overflow-hidden shadow-sm hover:shadow-lg transition hover:scale-105">
+                    <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
+                        alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover">
+                    <div class="px-4 py-3">
+                        <h3 class="text-sm font-semibold text-gray-900 mb-1">{{ $portofolio->judul }}</h3>
+                    </div>
+                </a>
+            @endforeach
         </section>
 
     </main>

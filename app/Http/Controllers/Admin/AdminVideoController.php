@@ -112,6 +112,7 @@ class AdminVideoController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'video_yt' => 'nullable|url|max:500',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -139,6 +140,7 @@ class AdminVideoController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'video_yt' => 'nullable|url|max:500',
         ]);
 
         if ($request->hasFile('gambar')) {

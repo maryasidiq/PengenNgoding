@@ -169,8 +169,9 @@
         @foreach ($kontenTerbaru as $konten)
       <a href="{{ route('video.bab', ['id' => $konten->video->id, 'bab_id' => $konten->id]) }}"
         class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
-        <img src="{{ url($konten->gambar) }}" class="w-full h-48 object-cover"
-        alt="{{ $konten->video->nama }}">
+        <img
+        src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
+        class="w-full h-48 object-cover" alt="{{ $konten->video->nama }}">
         <div class="p-4 flex flex-col gap-2">
         <h3 class="text-sm font-semibold text-gray-800">{{ $konten->video->judul }} - {{ $konten->judul }}</h3>
         <p class="text-sm text-gray-600">{{ Str::limit(strip_tags($konten->deskripsi), 100) }}</p>
@@ -237,7 +238,9 @@
       <article class="flex flex-col items-center text-center hover:scale-110 transition">
         <a href="{{ route('video.detail', ['id' => $video->id]) }}"
         class="mb-3 flex items-center justify-center drop-shadow">
-        <img src="{{ url($video->gambar) }}" alt="{{ $video->nama }} Icon" class="w-12 h-12 select-none">
+        <img
+          src="{{ filter_var($video->gambar, FILTER_VALIDATE_URL) ? $video->gambar : asset('storage/' . $video->gambar) }}"
+          alt="{{ $video->nama }} Icon" class="w-12 h-12 select-none">
         </a>
         <a href="{{ route('video.detail', ['id' => $video->id]) }}"
         class="text-sm font-semibold text-gray-900 mb-1 hover:underline">

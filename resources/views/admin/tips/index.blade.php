@@ -48,7 +48,8 @@
                                     <td>{!! Str::limit(strip_tags($tip->long_deskripsi), 100) !!}</td>
                                     <td>
                                         @if($tip->gambar)
-                                            <img src="{{ asset('storage/' . $tip->gambar) }}" alt="{{ $tip->judul }}" width="100">
+                                            <img src="{{ filter_var($tip->gambar, FILTER_VALIDATE_URL) ? $tip->gambar : asset('storage/' . $tip->gambar) }}"
+                                                alt="{{ $tip->judul }}" width="100">
                                         @else
                                             -
                                         @endif

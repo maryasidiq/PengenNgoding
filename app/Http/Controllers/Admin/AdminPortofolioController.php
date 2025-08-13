@@ -16,11 +16,11 @@ class AdminPortofolioController extends Controller
 
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('judul', 'like', "%{$search}%")
-                  ->orWhere('kategori', 'like', "%{$search}%")
-                  ->orWhere('deskripsi', 'like', "%{$search}%")
-                  ->orWhere('link', 'like', "%{$search}%");
+                    ->orWhere('kategori', 'like', "%{$search}%")
+                    ->orWhere('deskripsi', 'like', "%{$search}%")
+                    ->orWhere('link', 'like', "%{$search}%");
             });
         }
 
@@ -106,13 +106,25 @@ class AdminPortofolioController extends Controller
 
         $portofolio->update($validated);
 
+        // Handle delete screenshots
+        if ($request->has('delete_screenshots')) {
+            $deleteIds = $request->input('delete_screenshots');
+            foreach ($deleteIds as $id) {
+                $screenshot = portofolioScreenshotModel::find($id);
+                if ($screenshot) {
+                    Storage::disk('public')->delete($screenshot->screenshot);
+                    $screenshot->delete();
+                }
+            }
+        }
+
         // Handle new screenshots
         if ($request->hasFile('screenshots')) {
             foreach ($request->file('screenshots') as $screenshot) {
                 $screenshotPath = $screenshot->store('portofolio/screenshots', 'public');
                 portofolioScreenshotModel::create([
-                    'portofolio_id' => $portofolio->id,
-                    'image_path' => $screenshotPath
+                    'portfolio_id' => $portofolio->id,
+                    'screenshot' => $screenshotPath
                 ]);
             }
         }

@@ -137,7 +137,8 @@
                         @foreach ($kontenTerbaru as $konten)
                             <li class="flex items-center space-x-3">
                                 <span class="inline-block px-2 py-1 rounded font-semibold">
-                                    <img src="{{ url($konten->tips->gambar) }}" class="w-12 h-12 select-none">
+                                    <img src="{{ filter_var($konten->tips->gambar, FILTER_VALIDATE_URL) ? $konten->tips->gambar : asset('storage/' . $konten->tips->gambar) }}"
+                                        class="w-12 h-12 select-none">
                                 </span>
                                 <a href="{{ route('tips.bab', ['id' => $konten->tips, 'bab_id' => $konten->id]) }}"
                                     class="hover:underline text-gray-700">
@@ -149,7 +150,7 @@
                 </div>
             </div>
 
-<!-- 
+            <!-- 
             <section class="mt-8">
                 <h3 class="font-semibold mb-3">Tutorial Bootstrap Dasar Lainnya</h3>
                 <ul class="list-disc list-inside text-indigo-600 space-y-1">
@@ -244,7 +245,8 @@
                     @foreach ($kontenTerbaru as $konten)
                         <li class="flex items-center space-x-3">
                             <span class="inline-block px-2 py-1 rounded font-semibold">
-                                <img src="{{ url($konten->tips->gambar) }}" class="w-12 h-12 select-none">
+                                <img src="{{ filter_var($konten->tips->gambar, FILTER_VALIDATE_URL) ? $konten->tips->gambar : asset('storage/' . $konten->tips->gambar) }}"
+                                    class="w-12 h-12 select-none">
                             </span>
                             <a href="{{ route('tips.bab', ['id' => $konten->tips, 'bab_id' => $konten->id]) }}"
                                 class="hover:underline text-gray-700">

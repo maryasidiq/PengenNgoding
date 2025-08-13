@@ -64,8 +64,8 @@
         </div>
 
         <figure class="mb-6">
-            <img src="{{ asset($portofolio->gambar) }}" class="w-full h-auto rounded-lg shadow-md object-contain"
-                loading="lazy" />
+            <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
+                class="w-full h-auto rounded-lg shadow-md object-contain" loading="lazy" />
         </figure>
 
 
@@ -127,9 +127,11 @@
         <div
             class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pt-6 pb-12 max-w-6xl mx-auto content-center justify-center items-center">
             @foreach ($portofolio->screenshots as $screenshot)
-                <a href="{{ $screenshot->screenshot }}" data-lightbox="gallery" data-title="Screenshot">
-                    <img src="{{ $screenshot->screenshot }}" alt="Screenshot"
-                        class="rounded shadow-lg object-cover w-full h-28 hover:opacity-90 transition" loading="lazy" />
+                <a href="{{ filter_var($screenshot->screenshot, FILTER_VALIDATE_URL) ? $screenshot->screenshot : asset('storage/' . $screenshot->screenshot) }}"
+                    data-lightbox="gallery" data-title="Screenshot">
+                    <img src="{{ filter_var($screenshot->screenshot, FILTER_VALIDATE_URL) ? $screenshot->screenshot : asset('storage/' . $screenshot->screenshot) }}"
+                        alt="Screenshot" class="rounded shadow-lg object-cover w-full h-28 hover:opacity-90 transition"
+                        loading="lazy" />
                 </a>
             @endforeach
         </div>
@@ -141,7 +143,7 @@
                 @forelse ($related as $item)
                     <a href="{{ route('portofolio.show', $item->id) }}"
                         class="block rounded-lg shadow hover:shadow-lg transition bg-white p-4">
-                        <img src="{{ Str::startsWith($item->gambar, ['http://', 'https://']) ? $item->gambar : asset($item->gambar) }}"
+                        <img src="{{ Str::startsWith($item->gambar, ['http://', 'https://']) ? $item->gambar : asset('storage/' . $item->gambar) }}"
                             alt="{{ $item->judul }}" class="rounded mb-3 w-full object-cover h-28" loading="lazy" />
                         <h3 class="text-sm font-semibold text-blue-700">{{ $item->judul }}</h3>
                     </a>

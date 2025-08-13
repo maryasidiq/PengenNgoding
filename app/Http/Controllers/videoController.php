@@ -29,9 +29,20 @@ class videoController extends Controller
         $video = videoModel::findOrFail($id);
         $bab = videoContentModel::where('video_id', $id)->get();
 
+        // Ambil 4 konten tips terbaru beserta relasi tips
+        $kontenTerbaru = videoContentModel::with('video')
+            ->orderBy('updated_at', 'desc')
+            ->take(4)
+            ->get()
+            ->map(function ($item) {
+                $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
+                return $item;
+            });
+
         return view('video/detail', [
             'video' => $video,
             'bab' => $bab,
+            'kontenTerbaru' => $kontenTerbaru,
         ]);
     }
 
@@ -49,7 +60,7 @@ class videoController extends Controller
         $embedUrl = $this->convertToEmbedUrl($bab->video_yt);
 
 
-        
+
         return view('video/bab', [
             'video' => $video,
             'bab' => $bab,

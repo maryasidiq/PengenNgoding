@@ -65,7 +65,9 @@
         @forelse ($konten as $item)
       <a href="{{ route('artikel.bab', ['id' => $item->artikel_id, 'bab_id' => $item->id]) }}"
         class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
-        <img src="{{ asset($item->gambar) }}" class="w-full h-48 object-cover" alt="{{ $item->artikel->judul }}">
+        <img
+        src="{{ filter_var($item->gambar, FILTER_VALIDATE_URL) ? $item->gambar : asset('storage/' . $item->gambar) }}"
+        class="w-full h-48 object-cover" alt="{{ $item->artikel->judul }}">
         <div class="p-4 flex flex-col gap-2">
         <h3 class="text-sm font-semibold text-gray-800">
           {{ $item->artikel->judul }} - {{ $item->judul }}

@@ -29,9 +29,20 @@ class tipsController extends Controller
         $tips = tipsModel::findOrFail($id);
         $bab = tipsContentModel::where('tips_id', $id)->get();
 
+        // Ambil 4 konten tips terbaru beserta relasi tips
+        $kontenTerbaru = tipsContentModel::with('tips')
+            ->orderBy('updated_at', 'desc')
+            ->take(4)
+            ->get()
+            ->map(function ($item) {
+                $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
+                return $item;
+            });
+
         return view('tips/detail', [
             'tips' => $tips,
             'bab' => $bab,
+            'kontenTerbaru' => $kontenTerbaru,
         ]);
     }
 

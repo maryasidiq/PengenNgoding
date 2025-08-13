@@ -93,44 +93,40 @@
 
     <main class="container mx-auto px-4 md:px-6 lg:flex lg:space-x-8 pt-24 sm:pt-28 max-w-7xl">
         <section class="flex-grow bg-white border border-gray-200 rounded shadow-sm p-6 text-sm leading-relaxed">
-        <article class="max-w-3xl mx-auto lg:mx-0 pb-10 sm:pb-16 lg:pb-20">
+            <article class="max-w-3xl mx-auto lg:mx-0 pb-10 sm:pb-16 lg:pb-20">
 
-            <!-- Video -->
-            <div class="aspect-video bg-gray-300 rounded-md overflow-hidden mb-4">
-                @if ($embedUrl)
-                    <iframe 
-                        width="100%" 
-                        height="100%" 
-                        src="{{ $embedUrl }}" 
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                @else
-                    <div class="flex items-center justify-center h-full text-red-500 px-4 text-center">
-                        Video tidak tersedia atau URL tidak valid.
-                    </div>
-                @endif
-            </div>
+                <!-- Video -->
+                <div class="aspect-video bg-gray-300 rounded-md overflow-hidden mb-4">
+                    @if ($embedUrl)
+                        <iframe width="100%" height="100%" src="{{ $embedUrl }}" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    @else
+                        <div class="flex items-center justify-center h-full text-red-500 px-4 text-center">
+                            Video tidak tersedia atau URL tidak valid.
+                        </div>
+                    @endif
+                </div>
 
-            <!-- Judul -->
-            <h1 class="font-bold text-2xl sm:text-3xl mb-4">
-                {{ $bab->judul }}
-            </h1>
+                <!-- Judul -->
+                <h1 class="font-bold text-2xl sm:text-3xl mb-4">
+                    {{ $bab->judul }}
+                </h1>
 
-            <!-- Deskripsi -->
-            <section class="mb-8 text-gray-700">
-                {!! $bab->deskripsi !!}
-            </section>
+                <!-- Deskripsi -->
+                <section class="mb-8 text-gray-700">
+                    {!! $bab->deskripsi !!}
+                </section>
 
-            <!-- Tombol Kembali -->
-            <a href="{{ route('video.detail', ['id' => $video->id]) }}"
-               class="mt-5 inline-block text-blue-600 hover:underline">
-                ← Kembali ke daftar bab
-            </a>
+                <!-- Tombol Kembali -->
+                <a href="{{ route('video.detail', ['id' => $video->id]) }}"
+                    class="mt-5 inline-block text-blue-600 hover:underline">
+                    ← Kembali ke daftar bab
+                </a>
 
-        </article>
-    </section>
+            </article>
+        </section>
 
         <!-- Daftar Isi untuk Mobile & Tablet -->
         <div class="block lg:hidden px-4 pt-4 pb-1">
@@ -158,7 +154,8 @@
                     @foreach ($kontenTerbaru as $konten)
                         <li class="flex items-center space-x-3">
                             <span class="inline-block px-2 py-1 rounded font-semibold">
-                                <img src="{{ url($konten->video->gambar) }}" class="w-12 h-12 select-none">
+                                <img src="{{ filter_var($konten->video->gambar, FILTER_VALIDATE_URL) ? $konten->video->gambar : asset('storage/' . $konten->video->gambar) }}"
+                                    class="w-12 h-12 select-none">
                             </span>
                             <a href="{{ route('video.bab', ['id' => $konten->video, 'bab_id' => $konten->id]) }}"
                                 class="hover:underline text-gray-700">
@@ -265,7 +262,8 @@
                     @foreach ($kontenTerbaru as $konten)
                         <li class="flex items-center space-x-3">
                             <span class="inline-block px-2 py-1 rounded font-semibold">
-                                <img src="{{ url($konten->video->gambar) }}" class="w-12 h-12 select-none">
+                                <img src="{{ filter_var($konten->video->gambar, FILTER_VALIDATE_URL) ? $konten->video->gambar : asset('storage/' . $konten->video->gambar) }}"
+                                    class="w-12 h-12 select-none">
                             </span>
                             <a href="{{ route('video.bab', ['id' => $konten->video, 'bab_id' => $konten->id]) }}"
                                 class="hover:underline text-gray-700">

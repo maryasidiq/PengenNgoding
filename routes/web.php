@@ -10,12 +10,13 @@ use App\Http\Controllers\Admin\AdminArtikelController;
 use App\Http\Controllers\Admin\AdminTipsController;
 use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\berandaController;
 
 //Route Beranda
 Route::get('/', [berandaController::class, 'index'])->name('beranda');
-Route::get('/beranda', [berandaController::class, 'index',], )->name('beranda');
+// Route::get('/beranda', [berandaController::class, 'index',], )->name('beranda');
 
 //Route Portofolio
 Route::get('/portofolio', [portofolioController::class, 'index'])->name('portofolio.index');
@@ -46,10 +47,17 @@ Route::get('/ttg_kami', function () {
     return view('ttg_kami');
 })->name('ttg_kami');
 
+// Authentication Routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 // Admin Routes
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Dashboard
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     // Portofolio Management
     Route::resource('portofolio', AdminPortofolioController::class)->except(['show']);
@@ -68,7 +76,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Video Management
     Route::resource('video', AdminVideoController::class)->except(['show']);
-    // Remove duplicate route name 'admin.video.konten', keep only 'video.konten'
     Route::get('video/{video}/konten', [AdminVideoController::class, 'showKonten'])->name('video.konten');
     Route::get('video/{video}/konten/{konten}/edit', [AdminVideoController::class, 'editKonten'])->name('video.konten.edit');
     Route::put('video/{video}/konten/{konten}', [AdminVideoController::class, 'updateKonten'])->name('video.konten.update');
@@ -84,7 +91,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('artikel/{artikel}/konten/{konten}', [AdminArtikelController::class, 'destroyKonten'])->name('artikel.konten.destroy');
     Route::get('artikel/{artikel}/konten/create', [AdminArtikelController::class, 'createKonten'])->name('artikel.konten.create');
     Route::post('artikel/{artikel}/konten', [AdminArtikelController::class, 'storeKonten'])->name('artikel.konten.store');
-
-
 
 });

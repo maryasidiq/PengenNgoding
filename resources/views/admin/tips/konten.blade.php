@@ -28,8 +28,9 @@
                         <td>{!! \Illuminate\Support\Str::limit($konten->deskripsi ?? '', 100) !!}</td>
                         <td class="text-center align-middle">
                             @if(!empty($konten->gambar))
-                                <img src="{{ asset('storage/' . $konten->gambar) }}" alt="{{ $konten->judul }}"
-                                    class="img-fluid rounded" style="max-height: 80px; max-width: 120px; object-fit: contain;">
+                                <img src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
+                                    alt="{{ $konten->judul }}" class="img-fluid rounded"
+                                    style="max-height: 80px; max-width: 120px; object-fit: contain;">
                             @else
                                 <span class="text-muted">-</span>
                             @endif

@@ -29,9 +29,20 @@ class artikelController extends Controller
         $artikel = artikelModel::findOrFail($id);
         $bab = artikelContentModel::where('artikel_id', $id)->get();
 
+        // Ambil 4 konten artikel terbaru beserta relasi artikel
+        $kontenTerbaru = artikelContentModel::with('artikel')
+            ->orderBy('updated_at', 'desc')
+            ->take(4)
+            ->get()
+            ->map(function ($item) {
+                $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
+                return $item;
+            });
+
         return view('artikel/detail', [
             'artikel' => $artikel,
             'bab' => $bab,
+            'kontenTerbaru' => $kontenTerbaru,
         ]);
     }
 

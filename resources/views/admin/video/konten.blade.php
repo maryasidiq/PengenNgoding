@@ -17,6 +17,7 @@
                     <th>Judul Konten</th>
                     <th>Deskripsi</th>
                     <th>Gambar</th>
+                    <th>Link YouTube</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -28,8 +29,18 @@
                         <td>{!! \Illuminate\Support\Str::limit($konten->deskripsi ?? '', 100) !!}</td>
                         <td class="text-center align-middle">
                             @if(!empty($konten->gambar))
-                                <img src="{{ asset('storage/' . $konten->gambar) }}" alt="{{ $konten->judul }}"
-                                    class="img-fluid rounded" style="max-height: 80px; max-width: 120px; object-fit: contain;">
+                                <img src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
+                                    alt="{{ $konten->judul }}" class="img-fluid rounded"
+                                    style="max-height: 80px; max-width: 120px; object-fit: contain;">
+                            @else
+                                <span class="text-muted">-</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if(!empty($konten->video_yt))
+                                <a href="{{ $konten->video_yt }}" target="_blank" rel="noopener noreferrer">
+                                    {{ $konten->video_yt }}
+                                </a>
                             @else
                                 <span class="text-muted">-</span>
                             @endif

@@ -41,12 +41,12 @@
     <!-- Main content container -->
     <main class="max-w-4xl mx-auto px-6 pt-24 pb-10">
 
-        <!-- Article card -->
+        <!-- Tips card -->
         <article class="bg-white max-w-4xl mx-auto rounded-lg border border-slate-200 shadow-sm p-6">
             <header class="flex space-x-4 mb-6 items-center">
                 <!-- Gambar -->
                 <div class="flex-none p-2 shadow-md shrink-0 aspect-square w-24 bg-white rounded-lg">
-                    <img src="{{ url($tips->gambar) }}" alt="{{ $tips->nama }}"
+                    <img src="{{ filter_var($tips->gambar, FILTER_VALIDATE_URL) ? $tips->gambar : asset('storage/' . $tips->gambar) }}" alt="{{ $tips->nama }}"
                         class="w-full h-full object-contain select-none mix-blend-multiply" />
                 </div>
 
@@ -93,71 +93,18 @@
     <section class="bg-white w-full pt-4 pb-8 mb-16">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="font-semibold text-slate-900 mb-6 text-lg">Terbaru</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <a href="#">
-                    <article
-                        class="bg-white border border-slate-200 rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col">
-                        <div class="bg-yellow-300 h-28 flex items-center justify-center px-4 relative">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7747478f-6ce3-4b91-8d49-44745c6ac0f5.png"
-                                alt="Game Tebak Angka" class="object-contain h-20 w-full" />
-                            <span class="absolute top-1 left-2 text-[10px] font-semibold text-black select-none">Game
-                                Tebak Angka</span>
+            <div class="grid grid-cols-4 gap-6">
+                @foreach ($kontenTerbaru as $konten)
+                    <a href="{{ route('tips.bab', ['id' => $konten->tips->id, 'bab_id' => $konten->id]) }}"
+                        class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
+                        <img
+                            src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
+                            class="w-full h-28 object-contain" alt="{{ $konten->tips->nama }}">
+                        <div class="p-4 flex flex-col gap-2">
+                            <h3 class="text-sm font-semibold text-gray-800">{{ $konten->tips->judul }} - {{ $konten->judul }}</h3>
                         </div>
-                        <div class="p-3 flex-1 flex flex-col justify-between">
-                            <span class="text-xs text-blue-600 font-semibold uppercase select-none">JavaScript</span>
-                            <h3 class="mt-1 font-semibold text-slate-900 text-sm leading-tight">Membuat Game Tebak Angka
-                                Dengan JavaScript</h3>
-                        </div>
-                    </article>
-                </a>
-
-                <!-- Card 2 -->
-                <a href="#">
-                    <article
-                        class="bg-white border border-slate-200 rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col">
-                        <div class="bg-[#1B3A59] h-28 flex items-center justify-center px-4 relative">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/aa98e807-a45c-4aef-8a37-5a3d5e2c317f.png"
-                                alt="Form Login PHP" class="object-contain h-20 w-full" />
-                        </div>
-                        <div class="p-3 flex-1 flex flex-col justify-between">
-                            <span class="text-xs text-blue-600 font-semibold uppercase select-none">PHP</span>
-                            <h3 class="mt-1 font-semibold text-slate-900 text-sm leading-tight">Membuat Form Login
-                                Dengan PHP Tanpa Database</h3>
-                        </div>
-                    </article>
-                </a>
-
-                <!-- Card 3 & 4 (Git) -->
-                <a href="#">
-                    <article
-                        class="bg-white border border-slate-200 rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col ">
-                        <div class="bg-gray-800 h-28 flex items-center justify-center px-4 relative">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-                                alt="Git Icon" class="w-8 h-8 select-none">
-                        </div>
-                        <div class="p-3 flex-1 flex flex-col justify-between">
-                            <span class="text-xs text-blue-600 font-semibold uppercase select-none">Git</span>
-                            <h3 class="mt-1 font-semibold text-slate-900 text-sm leading-tight">Tutorial Git #7 :
-                                Membuat Cabang atau Branch Pada Git</h3>
-                        </div>
-                    </article>
-                </a>
-
-                <a href="#">
-                    <article
-                        class="bg-white border border-slate-200 rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col ">
-                        <div class="bg-gray-800 h-28 flex items-center justify-center px-4 relative">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-                                alt="Git Icon" class="w-8 h-8 select-none">
-                        </div>
-                        <div class="p-3 flex-1 flex flex-col justify-between">
-                            <span class="text-xs text-blue-600 font-semibold uppercase select-none">Git</span>
-                            <h3 class="mt-1 font-semibold text-slate-900 text-sm leading-tight">Tutorial Git #6 :
-                                Membatalkan Revisi Git</h3>
-                        </div>
-                    </article>
-                </a>
+                    </a>
+                @endforeach
             </div>
         </div>
     </section>
