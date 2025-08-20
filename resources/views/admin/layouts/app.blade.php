@@ -13,6 +13,10 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     <style>
         .sidebar {
             min-height: 100vh;
@@ -47,6 +51,15 @@
             z-index: 1000;
         }
 
+        trix-editor.form-control {
+            min-height: 300px;
+            /* tinggi awal diperbesar */
+            padding: 12px;
+            /* jarak dalam biar lega */
+            font-size: 14px;
+            /* ukuran teks nyaman */
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
@@ -56,6 +69,27 @@
             .main-content {
                 margin-left: 0;
             }
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            /* abu muda */
+            border: 1px solid #ddd;
+            /* garis tipis */
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            font-family: "Fira Code", "Courier New", monospace;
+            font-size: 14px;
+            color: #212529;
+            /* warna teks */
+            white-space: pre-wrap;
+            /* biar wrap */
+            word-break: break-word;
         }
     </style>
 </head>
@@ -157,6 +191,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- rich text editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.js"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+
+    <script>
+        document.addEventListener("trix-toolbar-ready", function (event) {
+            const buttonHTML = '<button type="button" class="trix-button" data-trix-action="code" title="Code Block">&lt;/&gt;</button>';
+            const group = event.target.querySelector(".trix-button-group.trix-button-group--block-tools");
+            group.insertAdjacentHTML("beforeend", buttonHTML);
+        });
+
+        // Aksi tombol custom
+        document.addEventListener("trix-action-invoke", function (event) {
+            if (event.actionName === "code") {
+                let editor = event.target.editor;
+                let selectedText = editor.getSelectedDocument().toString();
+                editor.insertHTML(`<pre><code>${selectedText || "/* your code */"}</code></pre>`);
+            }
+        });
+    </script>
 
     @stack('scripts')
 </body>

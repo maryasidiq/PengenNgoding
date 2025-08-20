@@ -44,8 +44,10 @@
                                             class="text-blue-600 hover:underline">{{ $artikel->nama }}</a></td>
                                     <td>{{ $artikel->kategori }}</td>
                                     <td>{{ $artikel->judul }}</td>
-                                    <td>{{ $artikel->short_deskripsi }}</td>
-                                    <td>{!! Str::limit(strip_tags($artikel->long_deskripsi), 100) !!}</td>
+                                    <td>{!! $artikel->short_deskripsi  !!}</td>
+                                    <!-- <td>{!! Str::limit(strip_tags($artikel->long_deskripsi), 200) !!}</td> -->
+                                    <td>{!! Str::limit($artikel->long_deskripsi, 500) !!}</td>
+
                                     <td>
                                         @if($artikel->gambar)
                                             <img src="{{ filter_var($artikel->gambar, FILTER_VALIDATE_URL) ? $artikel->gambar : asset('storage/' . $artikel->gambar) }}"

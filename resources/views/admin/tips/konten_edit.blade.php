@@ -28,10 +28,11 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi"
-                            name="deskripsi" rows="5">{{ old('deskripsi', $konten->deskripsi) }}</textarea>
+                        <input id="deskripsi" type="hidden" name="deskripsi"
+                            value="{{ old('deskripsi', $konten->deskripsi) }}">
+                        <trix-editor input="deskripsi" class="form-control"></trix-editor>
                         @error('deskripsi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

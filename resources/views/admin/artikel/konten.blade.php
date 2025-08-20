@@ -25,7 +25,7 @@
                     <tr>
                         <td>{{ $konten->id }}</td>
                         <td>{{ $konten->judul ?? '-' }}</td>
-                        <td>{!! \Illuminate\Support\Str::limit($konten->deskripsi ?? '', 100) !!}</td>
+                        <td>{!! \Illuminate\Support\Str::limit($konten->deskripsi ?? '', 500) !!}</td>
                         <td class="text-center align-middle">
                             @if(!empty($konten->gambar))
                                 <img src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"

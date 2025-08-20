@@ -25,10 +25,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="deskripsi">Deskripsi</label>
-                                <textarea name="deskripsi" id="deskripsi"
-                                    class="form-control @error('deskripsi') is-invalid @enderror"
-                                    rows="10">{{ old('deskripsi', $konten->deskripsi) }}</textarea>
+                                <label for="deskripsi" class="form-label">Deskripsi</label>
+                                <input id="deskripsi" type="hidden" name="deskripsi"
+                                    value="{{ old('deskripsi', $konten->deskripsi) }}">
+                                <trix-editor input="deskripsi" class="form-control"></trix-editor>
                                 @error('deskripsi')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

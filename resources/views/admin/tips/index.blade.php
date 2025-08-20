@@ -44,7 +44,7 @@
                                             class="text-blue-600 hover:underline">{{ $tip->nama }}</a></td>
                                     <td>{{ $tip->kategori }}</td>
                                     <td>{{ $tip->judul }}</td>
-                                    <td>{{ $tip->short_deskripsi }}</td>
+                                    <td>{!! $tip->short_deskripsi !!}</td>
                                     <td>{!! Str::limit(strip_tags($tip->long_deskripsi), 100) !!}</td>
                                     <td>
                                         @if($tip->gambar)

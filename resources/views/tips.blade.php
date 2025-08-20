@@ -248,7 +248,7 @@
         </a>
 
         <a href="{{ route('tips.detail', ['id' => $tips->id]) }}" class="text-gray-600 text-xs max-w-[110px]">
-        {{ $tips->short_deskripsi }}
+        {!!  $tips->short_deskripsi !!}
         </a>
 
       </article>

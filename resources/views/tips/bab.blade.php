@@ -83,6 +83,42 @@
                 max-width: 100vw;
             }
         }
+
+        .prose ol {
+            list-style-type: decimal;
+            /* angka */
+            margin-left: 1.5rem;
+            /* jarak biar agak masuk */
+            padding-left: 1rem;
+        }
+
+        .prose ul {
+            list-style-type: disc;
+            /* bulatan */
+            margin-left: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            /* abu muda */
+            border: 1px solid #ddd;
+            /* garis tipis */
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            font-family: "Fira Code", "Courier New", monospace;
+            font-size: 14px;
+            color: #212529;
+            /* warna teks */
+            white-space: pre-wrap;
+            /* biar wrap */
+            word-break: break-word;
+        }
     </style>
 </head>
 
@@ -101,7 +137,7 @@
             </h1>
 
             <section class="mb-8">
-                <div class="text-gray-700">
+                <div class="prose max-w-none text-gray-700">
                     {!! $bab->deskripsi !!}
                 </div>
 

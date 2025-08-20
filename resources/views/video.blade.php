@@ -248,7 +248,7 @@
         </a>
 
         <a href="{{ route('video.detail', ['id' => $video->id]) }}" class="text-gray-600 text-xs max-w-[110px]">
-        {{ $video->short_deskripsi }}
+        {!!  $video->short_deskripsi !!}
         </a>
 
       </article>

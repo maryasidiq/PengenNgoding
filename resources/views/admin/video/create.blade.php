@@ -21,14 +21,14 @@
 
             <div class="mb-3">
                 <label for="short_deskripsi" class="form-label">Short Deskripsi</label>
-                <textarea name="short_deskripsi" id="short_deskripsi" class="form-control" rows="3"
-                    required>{{ old('short_deskripsi') }}</textarea>
+                <input id="short_deskripsi" type="hidden" name="short_deskripsi" value="{{ old('short_deskripsi') }}">
+                <trix-editor input="short_deskripsi" class="form-control"></trix-editor>
             </div>
 
             <div class="mb-3">
                 <label for="long_deskripsi" class="form-label">Long Deskripsi</label>
-                <textarea name="long_deskripsi" id="long_deskripsi" class="form-control" rows="6"
-                    required>{{ old('long_deskripsi') }}</textarea>
+                <input id="long_deskripsi" type="hidden" name="long_deskripsi" value="{{ old('long_deskripsi') }}">
+                <trix-editor input="long_deskripsi" class="form-control"></trix-editor>
             </div>
 
             <div class="mb-3">

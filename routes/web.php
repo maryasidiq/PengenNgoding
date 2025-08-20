@@ -43,9 +43,9 @@ Route::get('/video', [videoController::class, 'index',], )->name('video');
 Route::get('/video/{id}', [videoController::class, 'detail'])->name('video.detail');
 Route::get('/video/{id}/bab/{bab_id}', [videoController::class, 'bab'])->name('video.bab');
 
-Route::get('/ttg_kami', function () {
-    return view('ttg_kami');
-})->name('ttg_kami');
+use App\Http\Controllers\TentangKamiController;
+
+Route::get('/ttg_kami', [TentangKamiController::class, 'index'])->name('ttg_kami');
 
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

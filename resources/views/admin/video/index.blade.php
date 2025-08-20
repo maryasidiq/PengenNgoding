@@ -45,7 +45,7 @@
                                                 class="text-blue-600 hover:underline">{{ $video->nama }}</a></td>
                                         <td>{{ $video->kategori }}</td>
                                         <td>{{ $video->judul }}</td>
-                                        <td>{{ $video->short_deskripsi }}</td>
+                                        <td>{!! $video->short_deskripsi !!}</td>
                                         <td>{!! Str::limit(strip_tags($video->long_deskripsi), 100) !!}</td>
                                         <td>
                                             @if($video->gambar)

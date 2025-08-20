@@ -36,29 +36,29 @@
 
     @include('partials.header')
 
-        <!-- Mobile Menu -->
-        <div x-show="mobileOpen" x-transition
-            class="md:hidden px-5 pt-4 pb-6 space-y-3 bg-white text-sm font-semibold text-gray-700">
-            <a href="{{ route('beranda') }}" class="block hover:text-indigo-600">BERANDA</a>
-            <div x-data="{ open: false }">
-                <button @click="open = !open"
-                    class="w-full text-left flex items-center justify-between hover:text-indigo-600">
-                    BLOG
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                </button>
-                <div x-show="open" x-transition class="mt-2 pl-3 space-y-2">
-                    <a href="{{ route('artikel') }}" class="block hover:text-indigo-600">Artikel</a>
-                    <a href="{{ route('tips') }}" class="block hover:text-indigo-600">Tips</a>
-                    <a href="{{ route('video') }}" class="block hover:text-indigo-600">Video</a>
-                </div>
+    <!-- Mobile Menu -->
+    <div x-show="mobileOpen" x-transition
+        class="md:hidden px-5 pt-4 pb-6 space-y-3 bg-white text-sm font-semibold text-gray-700">
+        <a href="{{ route('beranda') }}" class="block hover:text-indigo-600">BERANDA</a>
+        <div x-data="{ open: false }">
+            <button @click="open = !open"
+                class="w-full text-left flex items-center justify-between hover:text-indigo-600">
+                BLOG
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </button>
+            <div x-show="open" x-transition class="mt-2 pl-3 space-y-2">
+                <a href="{{ route('artikel') }}" class="block hover:text-indigo-600">Artikel</a>
+                <a href="{{ route('tips') }}" class="block hover:text-indigo-600">Tips</a>
+                <a href="{{ route('video') }}" class="block hover:text-indigo-600">Video</a>
             </div>
-            <a href="#kerjasama" class="block hover:text-indigo-600">KERJASAMA</a>
-            <a href="#portfolio" class="block hover:text-indigo-600">PORTFOLIO</a>
-            <a href="{{ route('ttg_kami') }}" class="block hover:text-indigo-600">TENTANG KAMI</a>
         </div>
+        <a href="#kerjasama" class="block hover:text-indigo-600">KERJASAMA</a>
+        <a href="#portfolio" class="block hover:text-indigo-600">PORTFOLIO</a>
+        <a href="{{ route('ttg_kami') }}" class="block hover:text-indigo-600">TENTANG KAMI</a>
+    </div>
     </nav>
 
     <!-- HERO SECTION -->
@@ -263,42 +263,18 @@
 
                     <!-- Gallery Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                        <!-- Card 1 -->
-                        <a href="#"
-                            class="relative group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bea9833b-944a-4579-a747-02189f8ef259.png"
-                                alt="Landing page Jepara International Furniture" class="w-full h-48 object-cover"
-                                loading="lazy"
-                                onerror="this.onerror=null;this.src='https://placehold.co/300x120?text=Image+Not+Loaded';" />
-                            <div
-                                class="absolute inset-0 bg-[#07345B]/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                                <p class="text-sm font-bold text-center px-2">Landing Page<br>Jepara Furniture</p>
-                            </div>
-                        </a>
-
-                        <!-- Card 2 -->
-                        <a href="#"
-                            class="relative group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8a8ffb1b-04f0-4d2d-acef-f514ce940d99.png"
-                                alt="Dashboard user interface" class="w-full h-48 object-cover" loading="lazy"
-                                onerror="this.onerror=null;this.src='https://placehold.co/300x120?text=Image+Not+Loaded';" />
-                            <div
-                                class="absolute inset-0 bg-[#07345B]/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                                <p class="text-sm font-bold text-center px-2">Dashboard<br>User Interface</p>
-                            </div>
-                        </a>
-
-                        <!-- Card 3 -->
-                        <a href="#"
-                            class="relative group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/515214e4-bccb-47e6-a807-bb404a7591f6.png"
-                                alt="Web app screenshots" class="w-full h-48 object-cover" loading="lazy"
-                                onerror="this.onerror=null;this.src='https://placehold.co/300x120?text=Image+Not+Loaded';" />
-                            <div
-                                class="absolute inset-0 bg-[#07345B]/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                                <p class="text-sm font-bold text-center px-2">Web App<br>Screenshots</p>
-                            </div>
-                        </a>
+                        @foreach($portofolios as $portofolio)
+                            <a href="{{ route('portofolio.show', $portofolio->id) }}"
+                                class="relative group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
+                                <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
+                                    alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover" loading="lazy"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/300x120?text=Image+Not+Loaded';" />
+                                <div
+                                    class="absolute inset-0 bg-[#07345B]/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                                    <p class="text-sm font-bold text-center px-2">{{ $portofolio->judul }}</p>
+                                </div>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </article>
@@ -310,7 +286,7 @@
 
 
     <!-- Footer -->
-        @include('partials.footer')
+    @include('partials.footer')
 </body>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 

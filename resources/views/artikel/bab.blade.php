@@ -83,6 +83,42 @@
                 max-width: 100vw;
             }
         }
+
+        .prose ol {
+            list-style-type: decimal;
+            /* angka */
+            margin-left: 1.5rem;
+            /* jarak biar agak masuk */
+            padding-left: 1rem;
+        }
+
+        .prose ul {
+            list-style-type: disc;
+            /* bulatan */
+            margin-left: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            /* abu muda */
+            border: 1px solid #ddd;
+            /* garis tipis */
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            font-family: "Fira Code", "Courier New", monospace;
+            font-size: 14px;
+            color: #212529;
+            /* warna teks */
+            white-space: pre-wrap;
+            /* biar wrap */
+            word-break: break-word;
+        }
     </style>
 </head>
 
@@ -101,7 +137,7 @@
             </h1>
 
             <section class="mb-8">
-                <div class="text-gray-700">
+                <div class="prose max-w-none text-gray-700">
                     {!! $bab->deskripsi !!}
                 </div>
 
@@ -150,72 +186,7 @@
                 </div>
             </div>
 
-            <!-- 
-            <section class="mt-8">
-                <h3 class="font-semibold mb-3">Tutorial Bootstrap Dasar Lainnya</h3>
-                <ul class="list-disc list-inside text-indigo-600 space-y-1">
-                    <li><a href="#" class="hover:text-indigo-800">Belajar Bootstrap Grid System</a></li>
-                    <li><a href="#" class="hover:text-indigo-800">Cara Menggunakan Button Bootstrap</a></li>
-                    <li><a href="#" class="hover:text-indigo-800">Komponen Form di Bootstrap</a></li>
-                    <li><a href="#" class="hover:text-indigo-800">Membuat Navbar dengan Bootstrap</a></li>
-                    <li><a href="#" class="hover:text-indigo-800">Tutorial Utilities Bootstrap</a></li>
-                </ul>
-            </section> -->
 
-            <!-- <section class="mt-8">
-                <h3 class="font-semibold mb-6">Tutorial Menarik Lainnya</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-
-                    Card 1
-                    <a href="/tutorial/responsive-web-design"
-                        class="group block border rounded shadow-sm overflow-hidden hover:shadow-md transition">
-                        <div class="overflow-hidden">
-                            <img src="https://placehold.co/300x180/0077B5/ffffff?text=Responsive+Web+Design+Tutorial"
-                                alt="Responsive Web Design"
-                                class="w-full h-auto transform group-hover:scale-105 transition duration-300 ease-in-out" />
-                        </div>
-                        <div class="p-3 text-xs sm:text-sm font-semibold text-center">Tutorial Responsive Web Design |
-                            Mudah dan Cepat</div>
-                    </a>
-
-                    Card 2
-                    <a href="/tutorial/css-grid"
-                        class="group block border rounded shadow-sm overflow-hidden hover:shadow-md transition">
-                        <div class="overflow-hidden">
-                            <img src="https://placehold.co/300x180/purple/ffffff?text=Belajar+CSS+Grid"
-                                alt="Belajar CSS Grid"
-                                class="w-full h-auto transform group-hover:scale-105 transition duration-300 ease-in-out" />
-                        </div>
-                        <div class="p-3 text-xs sm:text-sm font-semibold text-center">Belajar CSS Grid: Versi Lengkap
-                            dan Cara Penggunaannya</div>
-                    </a>
-
-                    Card 3
-                    <a href="/tutorial/javascript-dasar"
-                        class="group block border rounded shadow-sm overflow-hidden hover:shadow-md transition">
-                        <div class="overflow-hidden">
-                            <img src="https://placehold.co/300x180/0077B5/ffffff?text=Tutorial+JavaScript+Dasar"
-                                alt="Tutorial JavaScript Dasar"
-                                class="w-full h-auto transform group-hover:scale-105 transition duration-300 ease-in-out" />
-                        </div>
-                        <div class="p-3 text-xs sm:text-sm font-semibold text-center">Tutorial JavaScript Dasar untuk
-                            Pemula</div>
-                    </a>
-
-                    Card 4
-                    <a href="/tutorial/bootstrap-form"
-                        class="group block border rounded shadow-sm overflow-hidden hover:shadow-md transition">
-                        <div class="overflow-hidden">
-                            <img src="https://placehold.co/300x180/purple/ffffff?text=Bootstrap+Forms"
-                                alt="Bootstrap Forms Tutorial"
-                                class="w-full h-auto transform group-hover:scale-105 transition duration-300 ease-in-out" />
-                        </div>
-                        <div class="p-3 text-xs sm:text-sm font-semibold text-center">Membuat Form Dengan Bootstrap
-                            dengan Cepat dan Mudah</div>
-                    </a>
-
-                </div>
-            </section> -->
 
         </article>
 

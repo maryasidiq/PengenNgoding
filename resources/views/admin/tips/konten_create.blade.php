@@ -28,8 +28,9 @@
 
                     <div class="mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi"
-                            name="deskripsi" rows="5">{{ old('deskripsi') }}</textarea>
+                        <input id="deskripsi" type="hidden" name="deskripsi" value="{{ old('deskripsi') }}">
+                        <trix-editor input="deskripsi"
+                            class="form-control @error('deskripsi') is-invalid @enderror"></trix-editor>
                         @error('deskripsi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

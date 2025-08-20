@@ -7,6 +7,11 @@
     <link rel="icon" href="{{ asset('images/logo_pengen_ngoding.png') }}" type="image/png">
     <title>Pengen Ngoding - Artikel 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Highlight.js untuk syntax highlight -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <style>
         /* Custom scrollbar for pagination */
         .pagination::-webkit-scrollbar {
@@ -29,6 +34,42 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+        }
+
+        .prose ol {
+            list-style-type: decimal;
+            /* angka */
+            margin-left: 1.5rem;
+            /* jarak biar agak masuk */
+            padding-left: 1rem;
+        }
+
+        .prose ul {
+            list-style-type: disc;
+            /* bulatan */
+            margin-left: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            /* abu muda */
+            border: 1px solid #ddd;
+            /* garis tipis */
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            font-family: "Fira Code", "Courier New", monospace;
+            font-size: 14px;
+            color: #212529;
+            /* warna teks */
+            white-space: pre-wrap;
+            /* biar wrap */
+            word-break: break-word;
         }
     </style>
 </head>
@@ -63,9 +104,9 @@
                 </div>
             </header>
 
-            <p class="mb-6 text-slate-700 leading-relaxed text-sm sm:text-base max-w-none">
+            <div class="prose">
                 {!! $artikel->long_deskripsi !!}
-            </p>
+            </div>
 
             <section>
                 <h2 class="font-semibold mb-3 text-lg text-slate-900">Daftar Bab</h2>

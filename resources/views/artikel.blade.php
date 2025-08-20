@@ -247,7 +247,7 @@
         </a>
 
         <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}" class="text-gray-600 text-xs max-w-[110px]">
-        {{ $artikel->short_deskripsi }}
+        {!! $artikel->short_deskripsi!!}
         </a>
 
       </article>
