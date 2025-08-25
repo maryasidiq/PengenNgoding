@@ -166,53 +166,75 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($kontenTerbaru as $konten)
-      <a href="{{ route('artikel.bab', ['id' => $konten->artikel->id, 'bab_id' => $konten->id]) }}"
-        class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
-        <img
-        src=" {{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
-        class="w-full h-48 object-cover" alt="{{ $konten->artikel->nama }}">
-        <div class="p-4 flex flex-col gap-2">
-        <h3 class="text-sm font-semibold text-gray-800">{{ $konten->artikel->judul }} - {{ $konten->judul }}</h3>
-        <p class="text-sm text-gray-600">{{ Str::limit(strip_tags($konten->deskripsi), 100) }}</p>
-        </div>
-      </a>
-    @endforeach
+          <div class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block relative">
+            <a href="{{ route('artikel.bab', ['id' => $konten->artikel->id, 'bab_id' => $konten->id]) }}">
+              <img
+                src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
+                class="w-full h-48 object-cover" alt="{{ $konten->artikel->nama }}">
+              <div class="p-4 flex flex-col gap-2">
+                <h3 class="text-sm font-semibold text-gray-800">
+                  {{ $konten->artikel->judul }} - {{ $konten->judul }}
+                </h3>
+                <p class="text-sm text-gray-600">
+                  {{ Str::limit(strip_tags($konten->deskripsi), 100) }}
+                </p>
+              </div>
+            </a>
+
+            @auth
+              <div class="absolute top-2 right-2 flex items-center space-x-1">
+                <a href="{{ route('admin.artikel.konten.edit', ['artikel' => $konten->artikel->id, 'konten' => $konten->id]) }}"
+                  class="bg-black hover:bg-yellow-600 text-white px-3 py-1 rounded-full text-xs flex items-center space-x-1 shadow transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
+                                                   a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                                                   l8.586-8.586z" />
+                  </svg>
+                  <span>Edit</span>
+                </a>
+              </div>
+            @endauth
+          </div>
+        @endforeach
       </div>
+
 
 
       <!-- Pagination -->
       <nav aria-label="Pagination" class="flex justify-center mt-6">
         @if ($kontenTerbaru->hasPages())
-        <ul class="inline-flex space-x-1 text-sm font-semibold pagination">
+          <ul class="inline-flex space-x-1 text-sm font-semibold pagination">
 
-          {{-- Tombol Previous --}}
-          <li>
-          <a href="{{ $kontenTerbaru->previousPageUrl() ?? '#' }}"
-            class="w-8 h-8 flex items-center justify-center rounded border border-blue-700 text-blue-700 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 {{ $kontenTerbaru->onFirstPage() ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}">
-            «
-          </a>
-          </li>
+            {{-- Tombol Previous --}}
+            <li>
+              <a href="{{ $kontenTerbaru->previousPageUrl() ?? '#' }}"
+                class="w-8 h-8 flex items-center justify-center rounded border border-blue-700 text-blue-700 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 {{ $kontenTerbaru->onFirstPage() ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}">
+                «
+              </a>
+            </li>
 
-          {{-- Tombol Halaman --}}
-          @foreach ($kontenTerbaru->getUrlRange(1, $kontenTerbaru->lastPage()) as $page => $url)
-        <li>
-        <a href="{{ $url }}" class="w-8 h-8 flex items-center justify-center rounded border border-blue-700
-        {{ $kontenTerbaru->currentPage() == $page ? 'bg-blue-900 text-white' : 'text-blue-700 hover:bg-blue-100' }}">
-          {{ $page }}
-        </a>
-        </li>
-        @endforeach
+            {{-- Tombol Halaman --}}
+            @foreach ($kontenTerbaru->getUrlRange(1, $kontenTerbaru->lastPage()) as $page => $url)
+              <li>
+                <a href="{{ $url }}"
+                  class="w-8 h-8 flex items-center justify-center rounded border border-blue-700
+                                                                      {{ $kontenTerbaru->currentPage() == $page ? 'bg-blue-900 text-white' : 'text-blue-700 hover:bg-blue-100' }}">
+                  {{ $page }}
+                </a>
+              </li>
+            @endforeach
 
-          {{-- Tombol Next --}}
-          <li>
-          <a href="{{ $kontenTerbaru->nextPageUrl() ?? '#' }}"
-            class="w-8 h-8 flex items-center justify-center rounded border border-blue-700 text-blue-700 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 {{ !$kontenTerbaru->hasMorePages() ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}">
-            »
-          </a>
-          </li>
+            {{-- Tombol Next --}}
+            <li>
+              <a href="{{ $kontenTerbaru->nextPageUrl() ?? '#' }}"
+                class="w-8 h-8 flex items-center justify-center rounded border border-blue-700 text-blue-700 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 {{ !$kontenTerbaru->hasMorePages() ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}">
+                »
+              </a>
+            </li>
 
-        </ul>
-    @endif
+          </ul>
+        @endif
       </nav>
 
       <!-- Lihat Selengkapnya Button -->
@@ -234,25 +256,39 @@
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
         @foreach ($artikels as $artikel)
-      <article class="flex flex-col items-center text-center hover:scale-110 transition">
-        <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
-        class="mb-3 flex items-center justify-center drop-shadow">
-        <img
-          src="{{ filter_var($artikel->gambar, FILTER_VALIDATE_URL) ? $artikel->gambar : asset('storage/' . $artikel->gambar) }}"
-          alt="{{ $artikel->nama }} Icon" class="w-12 h-12 select-none">
-        </a>
-        <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
-        class="text-sm font-semibold text-gray-900 mb-1 hover:underline">
-        {{ $artikel->nama }}
-        </a>
+          <article class="flex flex-col items-center text-center hover:scale-110 transition">
+            <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
+              class="mb-3 flex items-center justify-center drop-shadow">
+              <img
+                src="{{ filter_var($artikel->gambar, FILTER_VALIDATE_URL) ? $artikel->gambar : asset('storage/' . $artikel->gambar) }}"
+                alt="{{ $artikel->nama }} Icon" class="w-12 h-12 select-none">
+            </a>
+            <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
+              class="text-sm font-semibold text-gray-900 mb-1 hover:underline">
+              {{ $artikel->nama }}
+            </a>
 
-        <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}" class="text-gray-600 text-xs max-w-[110px]">
-        {!! $artikel->short_deskripsi!!}
-        </a>
+            <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}" class="text-gray-600 text-xs max-w-[110px]">
+              {!! $artikel->short_deskripsi !!}
+            </a>
 
-      </article>
-    @endforeach
+            {{-- Tombol Edit (hanya muncul kalau login) --}}
+            @auth
+              <a href="{{ route('admin.artikel.edit', $artikel->id) }}"
+                class="mt-2 inline-flex items-center px-3 py-1 bg-black hover:bg-yellow-600 text-white text-xs font-medium rounded-full shadow transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
+                             a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                             l8.586-8.586z" />
+                </svg>
+                Edit
+              </a>
+            @endauth
+          </article>
+        @endforeach
       </div>
+
     </section>
 
 

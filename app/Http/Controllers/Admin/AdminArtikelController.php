@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\artikelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\CategoryHelper;
 
 class AdminArtikelController extends Controller
 {
@@ -48,6 +49,9 @@ class AdminArtikelController extends Controller
 
         artikelModel::create($validated);
 
+        // Hapus kategori dari session jika ada (karena sudah digunakan)
+        CategoryHelper::removeFromSession($validated['kategori']);
+
         return redirect()->route('admin.artikel.index')
             ->with('success', 'Artikel berhasil ditambahkan!');
     }
@@ -77,6 +81,9 @@ class AdminArtikelController extends Controller
         }
 
         $artikel->update($validated);
+
+        // Hapus kategori dari session jika ada (karena sudah digunakan)
+        CategoryHelper::removeFromSession($validated['kategori']);
 
         return redirect()->route('admin.artikel.index')
             ->with('success', 'Artikel berhasil diupdate!');

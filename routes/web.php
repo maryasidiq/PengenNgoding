@@ -10,9 +10,12 @@ use App\Http\Controllers\Admin\AdminArtikelController;
 use App\Http\Controllers\Admin\AdminTipsController;
 use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminTestimoniController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\berandaController;
+use App\Http\Controllers\TentangKamiController;
 
 //Route Beranda
 Route::get('/', [berandaController::class, 'index'])->name('beranda');
@@ -43,8 +46,7 @@ Route::get('/video', [videoController::class, 'index',], )->name('video');
 Route::get('/video/{id}', [videoController::class, 'detail'])->name('video.detail');
 Route::get('/video/{id}/bab/{bab_id}', [videoController::class, 'bab'])->name('video.bab');
 
-use App\Http\Controllers\TentangKamiController;
-
+//Route Tentang Kami
 Route::get('/ttg_kami', [TentangKamiController::class, 'index'])->name('ttg_kami');
 
 // Authentication Routes
@@ -91,5 +93,17 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('artikel/{artikel}/konten/{konten}', [AdminArtikelController::class, 'destroyKonten'])->name('artikel.konten.destroy');
     Route::get('artikel/{artikel}/konten/create', [AdminArtikelController::class, 'createKonten'])->name('artikel.konten.create');
     Route::post('artikel/{artikel}/konten', [AdminArtikelController::class, 'storeKonten'])->name('artikel.konten.store');
+
+    // Testimoni Management
+    Route::resource('testimoni', AdminTestimoniController::class)->except(['show']);
+
+    // Category Management
+    Route::get('kategori', [AdminCategoryController::class, 'index'])->name('kategori.index');
+    Route::get('kategori/create', [AdminCategoryController::class, 'create'])->name('kategori.create');
+    Route::post('kategori', [AdminCategoryController::class, 'store'])->name('kategori.store');
+    Route::get('kategori/{category}', [AdminCategoryController::class, 'show'])->name('kategori.show');
+    Route::get('kategori/{category}/edit', [AdminCategoryController::class, 'edit'])->name('kategori.edit');
+    Route::put('kategori/{category}', [AdminCategoryController::class, 'update'])->name('kategori.update');
+    Route::delete('kategori/{category}', [AdminCategoryController::class, 'destroy'])->name('kategori.destroy');
 
 });

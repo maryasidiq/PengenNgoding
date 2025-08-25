@@ -130,7 +130,21 @@
     <main class="container mx-auto px-4 md:px-6 lg:flex lg:space-x-8 pt-24 sm:pt-28 max-w-7xl">
         <section class="flex-grow bg-white border border-gray-200 rounded shadow-sm p-6 text-sm leading-relaxed">
             <article class="max-w-3xl mx-auto lg:mx-0 pb-10 sm:pb-16 lg:pb-20">
-
+                @auth
+                    <div class="mb-4">
+                        <a href="{{ route('admin.video.konten.edit', ['video' => $video->id, 'konten' => $bab->id]) }}"
+                            class="inline-flex items-center space-x-2 bg-black hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md transition duration-200"
+                            title="Edit video">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414
+                               a2 2 0 112.828 2.828L11.828 15H9v-2.828
+                               l8.586-8.586z" />
+                            </svg>
+                            <span>Edit</span>
+                        </a>
+                    </div>
+                @endauth
                 <!-- Video -->
                 <div class="aspect-video bg-gray-300 rounded-md overflow-hidden mb-4">
                     @if ($embedUrl)

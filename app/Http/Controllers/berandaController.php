@@ -11,14 +11,15 @@ use App\Models\portofolioModel;
 
 class berandaController extends Controller
 {
-    function index(){
+    function index()
+    {
         // $data = clientModel::select('nama','gambar')->get()->toArray(); 
-        return view('beranda',[
+        return view('beranda', [
             // 'clients'       => clientModel::all(),
-            'clients'       =>clientModel::select('nama','gambar')->get(),
-            'testimonis'       =>testimoniModel::select('nama','jabatan','pesan')->get(),
+            'clients' => clientModel::select('id', 'nama', 'gambar')->get(),
+            'testimonis' => testimoniModel::select('id', 'nama', 'jabatan', 'pesan')->get(),
             'portofolios' => portofolioModel::select('id', 'judul', 'gambar')->latest()->take(6)->get(),
-            'title'          => 'beranda'
+            'title' => 'beranda'
         ]);
     }
 

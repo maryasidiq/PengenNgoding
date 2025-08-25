@@ -136,6 +136,18 @@
                         <i class="fas fa-video me-2"></i>Video
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.testimoni.*') ? 'active' : '' }}"
+                        href="{{ route('admin.testimoni.index') }}">
+                        <i class="fas fa-comment me-2"></i>Testimoni
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.kategori.*') ? 'active' : '' }}"
+                        href="{{ route('admin.kategori.index') }}">
+                        <i class="fas fa-tags me-2"></i>Kategori
+                    </a>
+                </li>
                 <li class="nav-item mt-3">
                     <a class="nav-link text-danger" href="{{ route('beranda') }}">
                         <i class="fas fa-sign-out-alt me-2"></i>Kembali ke Website

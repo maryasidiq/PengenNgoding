@@ -57,7 +57,12 @@
                                     <td>{{ $tip->updated_at->format('d-m-Y H:i') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('admin.tips.edit', $tip) }}" class="btn btn-sm btn-warning">
+                                            <a href="{{ route('tips.detail', $tip->id) }}" class="btn btn-sm btn-info"
+                                                target="_blank" title="Lihat Tips">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('admin.tips.edit', $tip) }}" class="btn btn-sm btn-warning"
+                                                title="Edit Tips">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <form action="{{ route('admin.tips.destroy', $tip) }}" method="POST"
@@ -65,7 +70,7 @@
                                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus tips ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus Tips">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>

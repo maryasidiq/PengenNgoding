@@ -58,8 +58,13 @@
                                         <td>{{ $video->updated_at->format('d-m-Y H:i') }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
+                                                <a href="{{ route('video.detail', $video->id) }}"
+                                                    class="btn btn-sm btn-info" target="_blank"
+                                                    title="Lihat Video">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
                                                 <a href="{{ route('admin.video.edit', $video) }}"
-                                                    class="btn btn-sm btn-warning">
+                                                    class="btn btn-sm btn-warning" title="Edit Video">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form action="{{ route('admin.video.destroy', $video) }}" method="POST"
@@ -67,7 +72,7 @@
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus video ini?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Hapus Video">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>

@@ -59,8 +59,12 @@
                                     <td>{{ $artikel->updated_at->format('d-m-Y H:i') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('admin.artikel.edit', $artikel) }}"
-                                                class="btn btn-sm btn-warning">
+                                            <a href="{{ route('artikel.detail', $artikel->id) }}" class="btn btn-sm btn-info"
+                                                target="_blank" title="Lihat Artikel">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('admin.artikel.edit', $artikel) }}" class="btn btn-sm btn-warning"
+                                                title="Edit Artikel">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <form action="{{ route('admin.artikel.destroy', $artikel) }}" method="POST"
@@ -68,7 +72,7 @@
                                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus artikel ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus Artikel">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>

@@ -77,9 +77,9 @@ class AdminClientController extends Controller
 
     public function destroy(clientModel $client)
     {
-        // Delete logo
-        if ($client->logo) {
-            Storage::disk('public')->delete($client->logo);
+        // Delete gambar
+        if ($client->gambar) {
+            Storage::disk('public')->delete($client->gambar);
         }
 
         $client->delete();

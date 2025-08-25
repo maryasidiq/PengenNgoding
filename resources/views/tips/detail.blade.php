@@ -77,6 +77,21 @@
 
         <!-- Tips card -->
         <article class="bg-white max-w-4xl mx-auto rounded-lg border border-slate-200 shadow-sm p-6">
+            <!-- session  -->
+            @auth
+                <div class="flex justify-end mb-6">
+                    <a href="/admin/tips/{{ $tips->id ?? '' }}/edit"
+                        class="flex items-center space-x-2 bg-black hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md transition duration-200"
+                        title="Edit Artikel">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        <span>Edit</span>
+                    </a>
+                </div>
+            @endauth
             <header class="flex space-x-4 mb-6 items-center">
                 <!-- Gambar -->
                 <div class="flex-none p-2 shadow-md shrink-0 aspect-square w-24 bg-white rounded-lg">

@@ -61,25 +61,39 @@
       </header>
 
       <!-- Article Container -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        @forelse ($konten as $item)
-      <a href="{{ route('tips.bab', ['id' => $item->tips_id, 'bab_id' => $item->id]) }}"
-        class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
-        <img
-        src="{{ filter_var($item->gambar, FILTER_VALIDATE_URL) ? $item->gambar : asset('storage/' . $item->gambar) }}"
-        alt="{{ $item->nama }}" class="w-full h-48 object-cover" alt="{{ $item->tips->judul }}">
-        <div class="p-4 flex flex-col gap-2">
-        <h3 class="text-sm font-semibold text-gray-800">
-          {{ $item->tips->judul }} - {{ $item->judul }}
-        </h3>
-        <p class="text-sm text-gray-600 line-clamp-3">
-          {{ \Illuminate\Support\Str::limit(strip_tags($item->deskripsi), 100) }}
-        </p>
-        </div>
-      </a>
-    @empty
-      <p class="text-gray-500 col-span-full text-center">Tidak ada konten pada kategori ini.</p>
-    @endforelse
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach ($konten as $item)
+          <div class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block relative">
+            <a href="{{ route('tips.bab', ['id' => $item->tips_id, 'bab_id' => $item->id]) }}">
+              <img
+                src="{{ filter_var($item->gambar, FILTER_VALIDATE_URL) ? $item->gambar : asset('storage/' . $item->gambar) }}"
+                class="w-full h-48 object-cover" alt="{{ $item->tips->judul }}">
+              <div class="p-4 flex flex-col gap-2">
+                <h3 class="text-sm font-semibold text-gray-800">
+                  {{ $item->tips->judul }} - {{ $item->judul }}
+                </h3>
+                <p class="text-sm text-gray-600">
+                  {{ Str::limit(strip_tags($item->deskripsi), 100) }}
+                </p>
+              </div>
+            </a>
+
+            @auth
+              <div class="absolute top-2 right-2 flex items-center space-x-1">
+                <a href="{{ route('admin.tips.konten.edit', ['tip' => $item->tips->id, 'konten' => $item->id]) }}"
+                  class="bg-black hover:bg-yellow-600 text-white px-3 py-1 rounded-full text-xs flex items-center space-x-1 shadow transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
+                                                                           a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                                                                           l8.586-8.586z" />
+                  </svg>
+                  <span>Edit</span>
+                </a>
+              </div>
+            @endauth
+          </div>
+        @endforeach
       </div>
 
       <!-- Hidden Values for JS -->
@@ -110,7 +124,7 @@
       <!-- <div class="flex justify-center mt-8">
         <a href="#"
           class="inline-block px-4 py-2 rounded bg-blue-700 text-white hover:bg-blue-800 text-sm font-semibold transition">
-          Lihat Semua Artikel →
+          Lihat Semua tips →
         </a>
       </div> -->
 

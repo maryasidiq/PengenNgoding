@@ -49,11 +49,20 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="category" class="form-label">Kategori *</label>
-                                        <input type="text" class="form-control @error('category') is-invalid @enderror"
-                                            id="category" name="category" value="{{ old('category') }}" required>
+                                        <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
+                                            <option value="">Pilih Kategori</option>
+                                            @foreach(App\Helpers\CategoryHelper::getAllCategories() as $category)
+                                                <option value="{{ $category }}" {{ old('category') == $category ? 'selected' : '' }}>
+                                                    {{ $category }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @error('category')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
+                                        <div class="form-text">
+                                            Atau <a href="{{ route('admin.kategori.create') }}" target="_blank">buat kategori baru</a>
+                                        </div>
                                     </div>
                                 </div>
 

@@ -54,13 +54,24 @@
     <!-- Main Article -->
     <main
         class="pt-28 scroll-mt-28 md:pt-32 md:scroll-mt-32 container mx-auto px-4 md:px-8 pb-10 max-w-5xl bg-white shadow-lg rounded-lg relative z-10">
+        @auth
+            <div class="flex justify-end mb-6">
+                <a href="/admin/portofolio/{{ $portofolio->id ?? '' }}/edit"
+                    class="flex items-center space-x-2 bg-black hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md transition duration-200"
+                    title="Edit Portofolio">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    <span>Edit</span>
+                </a>
+            </div>
+        @endauth
 
         <!-- ↑ tambahkan `pt-24` untuk memberi jarak dari navbar -->
         <h1 class="text-3xl font-bold mb-3 leading-tight">{{ $portofolio->judul}}</h1>
         <div class="flex items-center mb-6 space-x-3 text-gray-600 text-sm font-medium">
-            <!-- <span>Agus Setiawan</span> -->
-            <span aria-hidden="true">&bull;</span>
-            <!-- <time datetime="2023-04-04" class="text-gray-500">April 4, 2023</time> -->
         </div>
 
         <figure class="mb-6">

@@ -38,8 +38,17 @@
 
             <div class="mb-3">
                 <label for="kategori" class="form-label">Kategori</label>
-                <input type="text" name="kategori" id="kategori" class="form-control"
-                    value="{{ old('kategori', $video->kategori) }}" required>
+                <select name="kategori" id="kategori" class="form-control" required>
+                    <option value="">Pilih Kategori</option>
+                    @foreach(App\Helpers\CategoryHelper::getAllCategories() as $category)
+                        <option value="{{ $category }}" {{ (old('kategori', $video->kategori) == $category) ? 'selected' : '' }}>
+                            {{ $category }}
+                        </option>
+                    @endforeach
+                </select>
+                <div class="form-text">
+                    Atau <a href="{{ route('admin.kategori.create') }}" target="_blank">buat kategori baru</a>
+                </div>
             </div>
 
             <div class="mb-3">

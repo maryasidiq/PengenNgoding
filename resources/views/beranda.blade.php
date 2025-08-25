@@ -236,23 +236,37 @@
                 dikerjakan dapat digunakan dan diimplementasikan dengan baik.
             </p>
 
-            <!-- Swiper Section -->
+            <!-- Bagian Pelanggan -->
             <div class="swiper mySwiper mt-10 bg-transparent px-4">
                 <div class="swiper-wrapper">
                     <!-- Slide 1 -->
 
                     @foreach ($clients as $client)
-                        <div class="swiper-slide text-center">
+                        <div class="swiper-slide text-center relative">
                             <div
-                                class="bg-white rounded-2xl p-4 shadow-md w-36 h-36 mx-auto flex items-center justify-center">
-                                <img src="{{ asset('storage/' . $client->gambar) }}" alt="Parkland"
+                                class="bg-white rounded-2xl p-4 shadow-md w-36 h-36 mx-auto flex items-center justify-center relative">
+                                <img src="{{ asset('storage/' . $client->gambar) }}" alt="{{ $client->nama }}"
                                     class="h-20 object-contain" />
+
+                                {{-- Tombol Edit untuk Admin --}}
+                                @auth
+                                    <div class="absolute bottom-1 right-1 z-10">
+                                        <a href="/admin/client/{{ $client->id ?? '' }}/edit"
+                                            class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
+                                            title="Edit Client">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                @endauth
                             </div>
-                            <p class="mt-2 text-xs font-semibold text-sky-600 uppercase tracking-wide">{{$client->nama}}</p>
+                            <p class="mt-2 text-xs font-semibold text-sky-600 uppercase tracking-wide">{{ $client->nama }}
+                            </p>
                         </div>
                     @endforeach
-
-
 
                 </div>
                 <!-- Navigation -->
@@ -304,18 +318,36 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10">
                 @foreach ($portofolios as $portofolio)
-                    <a href="{{ route('portofolio.show', $portofolio->id) }}"
-                        class="relative group rounded-lg overflow-hidden shadow-lg">
-                        <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
-                            alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover">
-                        <div
-                            class="absolute inset-0 bg-[#07345B]/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                            <p class="text-center text-sm font-bold px-2">{{ $portofolio->judul }}</p>
-                        </div>
-                    </a>
+                    <div class="relative group rounded-lg overflow-hidden shadow-lg">
+                        <a href="{{ route('portofolio.show', $portofolio->id) }}">
+                            <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
+                                alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover">
+
+                            {{-- Overlay Judul --}}
+                            <div
+                                class="absolute inset-0 bg-[#07345B]/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                                <p class="text-center text-sm font-bold px-2">{{ $portofolio->judul }}</p>
+                            </div>
+                        </a>
+
+                        {{-- Tombol Edit untuk Admin --}}
+                        @auth
+                            <div class="absolute top-1 right-1 z-10">
+                                <a href="/admin/portofolio/{{ $portofolio->id ?? '' }}/edit"
+                                    class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
+                                    title="Edit Portofolio">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        @endauth
+
+                    </div>
                 @endforeach
             </div>
-
         </div>
     </section>
 
@@ -350,7 +382,7 @@
 
                     @foreach ($testimonis as $testimoni)
                         <!-- Testimoni 1 -->
-                        <div class="swiper-slide text-center">
+                        <div class="swiper-slide text-center relative">
                             <div class="bg-gray-50 rounded-lg shadow-md p-6 mx-auto max-w-md">
                                 <p class="italic text-sm leading-relaxed mb-4">
                                     {{ $testimoni->pesan }}
@@ -358,6 +390,21 @@
                                 <div class="text-xs text-indigo-700 font-semibold mb-1">{{ $testimoni->nama }}</div>
                                 <div class="text-xs text-indigo-400">{{ $testimoni->jabatan }}</div>
                             </div>
+
+                            {{-- Tombol Edit untuk Admin --}}
+                            @auth
+                                <div class="absolute top-1 right-1 z-10">
+                                    <a href="/admin/testimoni/{{ $testimoni->id ?? '' }}/edit"
+                                        class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
+                                        title="Edit Testimoni">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            @endauth
                         </div>
                     @endforeach
 

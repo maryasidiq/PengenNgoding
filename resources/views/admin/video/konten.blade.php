@@ -46,14 +46,25 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('admin.video.konten.edit', [$video->id, $konten->id]) }}"
-                                class="btn btn-sm btn-primary">Edit</a>
-                            <form action="{{ route('admin.video.konten.destroy', [$video->id, $konten->id]) }}" method="POST"
-                                class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus konten ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                            </form>
+                            <div class="btn-group" role="group">
+                                <a href="{{ route('video.bab', ['id' => $video->id, 'bab_id' => $konten->id]) }}"
+                                    class="btn btn-sm btn-info" target="_blank" title="Lihat Konten">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('admin.video.konten.edit', [$video->id, $konten->id]) }}"
+                                    class="btn btn-sm btn-warning" title="Edit Konten">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('admin.video.konten.destroy', [$video->id, $konten->id]) }}"
+                                    method="POST" class="d-inline"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus konten ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Hapus Konten">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
