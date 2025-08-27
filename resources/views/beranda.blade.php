@@ -254,7 +254,7 @@
                                 {{-- Tombol Edit untuk Admin --}}
                                 @auth
                                     <div class="absolute bottom-1 right-1 z-10">
-                                <a href="/admin/client/{{ encrypt($client->id) }}/edit"
+                                        <a href="/jpr/client/{{ encrypt($client->id) }}/edit"
                                             class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
                                             title="Edit Client">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none"
@@ -322,7 +322,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10">
                 @foreach ($portofolios as $portofolio)
                     <div class="relative group rounded-lg overflow-hidden shadow-lg">
-                            <a href="{{ route('portofolio.show', ['id' => encrypt($portofolio->id)]) }}">
+                        <a href="{{ route('portofolio.show', ['id' => encrypt($portofolio->id)]) }}">
                             <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
                                 alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover">
 
@@ -336,7 +336,7 @@
                         {{-- Tombol Edit untuk Admin --}}
                         @auth
                             <div class="absolute top-1 right-1 z-10">
-                                <a href="/admin/portofolio/{{ encrypt($portofolio->id) }}/edit"
+                                <a href="/jpr/portofolio/{{ encrypt($portofolio->id) }}/edit"
                                     class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
                                     title="Edit Portofolio">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
@@ -397,7 +397,7 @@
                             {{-- Tombol Edit untuk Admin --}}
                             @auth
                                 <div class="absolute top-1 right-1 z-10">
-                                    <a href="/admin/testimoni/{{ encrypt($testimoni->id) }}/edit"
+                                    <a href="/jpr/testimoni/{{ encrypt($testimoni->id) }}/edit"
                                         class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
                                         title="Edit Testimoni">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"

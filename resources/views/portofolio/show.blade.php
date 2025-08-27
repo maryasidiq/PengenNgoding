@@ -97,7 +97,7 @@
         class="pt-28 scroll-mt-28 md:pt-32 md:scroll-mt-32 container mx-auto px-4 md:px-8 pb-10 max-w-5xl bg-white shadow-lg rounded-lg relative z-10">
         @auth
             <div class="flex justify-end mb-6">
-                <a href="/admin/portofolio/{{ encrypt($portofolio->id ?? '') }}/edit"
+                <a href="/jpr/portofolio/{{ encrypt($portofolio->id ?? '') }}/edit"
                     class="flex items-center space-x-2 bg-black hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md transition duration-200"
                     title="Edit Portofolio">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"

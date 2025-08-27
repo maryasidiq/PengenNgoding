@@ -84,7 +84,7 @@
             <!-- session  -->
             @auth
                 <div class="flex justify-end mb-6">
-                    <a href="/admin/video/{{ encrypt($video->id ?? '') }}/edit"
+                    <a href="/jpr/video/{{ encrypt($video->id ?? '') }}/edit"
                         class="flex items-center space-x-2 bg-black hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md transition duration-200"
                         title="Edit Artikel">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
