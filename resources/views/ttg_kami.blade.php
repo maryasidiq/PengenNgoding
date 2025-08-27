@@ -264,7 +264,7 @@
                     <!-- Gallery Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         @foreach($portofolios as $portofolio)
-                            <a href="{{ route('portofolio.show', $portofolio->id) }}"
+                            <a href="{{ route('portofolio.show', ['id' => encrypt($portofolio->id)]) }}"
                                 class="relative group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
                                 <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
                                     alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover" loading="lazy"

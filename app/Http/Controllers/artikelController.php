@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\artikelModel;
 use App\Models\artikelContentModel;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class artikelController extends Controller
 {
@@ -24,44 +26,55 @@ class artikelController extends Controller
     }
 
 
-    function detail($id)
+    function detail($encryptedId)
     {
-        $artikel = artikelModel::findOrFail($id);
-        $bab = artikelContentModel::where('artikel_id', $id)->get();
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $artikel = artikelModel::findOrFail($id);
+            $bab = artikelContentModel::where('artikel_id', $id)->get();
 
-        // Ambil 4 konten artikel terbaru beserta relasi artikel
-        $kontenTerbaru = artikelContentModel::with('artikel')
-            ->orderBy('updated_at', 'desc')
-            ->take(4)
-            ->get()
-            ->map(function ($item) {
-                $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
-                return $item;
-            });
+            // Ambil 4 konten artikel terbaru beserta relasi artikel
+            $kontenTerbaru = artikelContentModel::with('artikel')
+                ->orderBy('updated_at', 'desc')
+                ->take(4)
+                ->get()
+                ->map(function ($item) {
+                    $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
+                    return $item;
+                });
 
-        return view('artikel/detail', [
-            'artikel' => $artikel,
-            'bab' => $bab,
-            'kontenTerbaru' => $kontenTerbaru,
-        ]);
+            return view('artikel/detail', [
+                'artikel' => $artikel,
+                'bab' => $bab,
+                'kontenTerbaru' => $kontenTerbaru,
+            ]);
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
 
-    function bab($id, $bab_id)
+    function bab($encryptedId, $encryptedBabId)
     {
-        $artikel = artikelModel::with('konten')->findOrFail($id);
-        $bab = artikelContentModel::where('id', $bab_id)
-            ->where('artikel_id', $id)
-            ->firstOrFail();
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $bab_id = Crypt::decrypt($encryptedBabId);
+            $artikel = artikelModel::with('konten')->findOrFail($id);
+            $bab = artikelContentModel::where('id', $bab_id)
+                ->where('artikel_id', $id)
+                ->firstOrFail();
 
-        // Ambil 3 konten terbaru
-        $kontenTerbaru = artikelContentModel::latest()->take(3)->get();
+            // Ambil 3 konten terbaru
+            $kontenTerbaru = artikelContentModel::latest()->take(3)->get();
 
-        return view('artikel/bab', [
-            'artikel' => $artikel,
-            'bab' => $bab,
-            'kontenTerbaru' => $kontenTerbaru, // ⬅️ Dikirim ke Blade
-        ]);
+            return view('artikel/bab', [
+                'artikel' => $artikel,
+                'bab' => $bab,
+                'kontenTerbaru' => $kontenTerbaru, // ⬅️ Dikirim ke Blade
+            ]);
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
 
@@ -76,6 +89,7 @@ class artikelController extends Controller
 
     public function kontenKategori($kategori)
     {
+        // Untuk kategori, kita tidak perlu enkripsi karena ini adalah string biasa
         $konten = artikelContentModel::with('artikel')
             ->whereHas('artikel', function ($query) use ($kategori) {
                 $query->where('kategori', $kategori);

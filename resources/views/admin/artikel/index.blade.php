@@ -40,7 +40,7 @@
                             @forelse($artikels as $index => $artikel)
                                 <tr>
                                     <td>{{ $artikels->firstItem() + $index }}</td>
-                                    <td><a href="{{ route('admin.artikel.konten', $artikel->id) }}"
+                                    <td><a href="{{ route('admin.artikel.konten', encrypt($artikel->id)) }}"
                                             class="text-blue-600 hover:underline">{{ $artikel->nama }}</a></td>
                                     <td>{{ $artikel->kategori }}</td>
                                     <td>{{ $artikel->judul }}</td>
@@ -59,16 +59,16 @@
                                     <td>{{ $artikel->updated_at->format('d-m-Y H:i') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('artikel.detail', $artikel->id) }}" class="btn btn-sm btn-info"
-                                                target="_blank" title="Lihat Artikel">
+                                            <a href="{{ route('artikel.detail', encrypt($artikel->id)) }}"
+                                                class="btn btn-sm btn-info" target="_blank" title="Lihat Artikel">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ route('admin.artikel.edit', $artikel) }}" class="btn btn-sm btn-warning"
-                                                title="Edit Artikel">
+                                            <a href="{{ route('admin.artikel.edit', encrypt($artikel->id)) }}"
+                                                class="btn btn-sm btn-warning" title="Edit Artikel">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('admin.artikel.destroy', $artikel) }}" method="POST"
-                                                class="d-inline"
+                                            <form action="{{ route('admin.artikel.destroy', encrypt($artikel->id)) }}"
+                                                method="POST" class="d-inline"
                                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus artikel ini?')">
                                                 @csrf
                                                 @method('DELETE')

@@ -39,11 +39,11 @@
 
                             <!-- Action Buttons -->
                             <div class="btn-group btn-group-sm mt-2">
-                                <a href="{{ route('admin.client.edit', $client) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ route('admin.client.edit', encrypt($client->id)) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.client.destroy', $client) }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus client ini?')">
+                                <form action="{{ route('admin.client.destroy', encrypt($client->id)) }}" method="POST"
+                                    class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus client ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">

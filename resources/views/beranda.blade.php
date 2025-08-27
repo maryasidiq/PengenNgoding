@@ -79,10 +79,13 @@
                         class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition text-center w-full sm:w-auto">
                         Mulai
                     </a>
-                    <a href="#kontak"
-                        class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-lg transition text-center w-full sm:w-auto">
-                        Hubungi Kami
+                    <a href="https://wa.me/6282329043833" target="_blank"
+                        class="flex items-center justify-center space-x-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-lg transition w-full sm:w-auto">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+                            class="w-5 h-5">
+                        <span>Hubungi Kami</span>
                     </a>
+
                 </div>
 
             </div>
@@ -251,7 +254,7 @@
                                 {{-- Tombol Edit untuk Admin --}}
                                 @auth
                                     <div class="absolute bottom-1 right-1 z-10">
-                                        <a href="/admin/client/{{ $client->id ?? '' }}/edit"
+                                <a href="/admin/client/{{ encrypt($client->id) }}/edit"
                                             class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
                                             title="Edit Client">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none"
@@ -319,7 +322,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10">
                 @foreach ($portofolios as $portofolio)
                     <div class="relative group rounded-lg overflow-hidden shadow-lg">
-                        <a href="{{ route('portofolio.show', $portofolio->id) }}">
+                            <a href="{{ route('portofolio.show', ['id' => encrypt($portofolio->id)]) }}">
                             <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
                                 alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover">
 
@@ -333,7 +336,7 @@
                         {{-- Tombol Edit untuk Admin --}}
                         @auth
                             <div class="absolute top-1 right-1 z-10">
-                                <a href="/admin/portofolio/{{ $portofolio->id ?? '' }}/edit"
+                                <a href="/admin/portofolio/{{ encrypt($portofolio->id) }}/edit"
                                     class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
                                     title="Edit Portofolio">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
@@ -394,7 +397,7 @@
                             {{-- Tombol Edit untuk Admin --}}
                             @auth
                                 <div class="absolute top-1 right-1 z-10">
-                                    <a href="/admin/testimoni/{{ $testimoni->id ?? '' }}/edit"
+                                    <a href="/admin/testimoni/{{ encrypt($testimoni->id) }}/edit"
                                         class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
                                         title="Edit Testimoni">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"

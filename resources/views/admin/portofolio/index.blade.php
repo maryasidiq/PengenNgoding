@@ -84,16 +84,16 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('portofolio.show', $portofolio->id) }}" class="btn btn-info me-2" target="_blank"
-                                title="Lihat Portofolio">
+                            <a href="{{ route('portofolio.show', encrypt($portofolio->id)) }}" class="btn btn-info me-2"
+                                target="_blank" title="Lihat Portofolio">
                                 <i class="fas fa-eye"></i> Lihat
                             </a>
-                            <a href="{{ route('admin.portofolio.edit', $portofolio) }}" class="btn btn-warning me-2"
-                                title="Edit Portofolio">
+                            <a href="{{ route('admin.portofolio.edit', encrypt($portofolio->id)) }}"
+                                class="btn btn-warning me-2" title="Edit Portofolio">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <form action="{{ route('admin.portofolio.destroy', $portofolio) }}" method="POST" class="d-inline"
-                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus portofolio ini?')">
+                            <form action="{{ route('admin.portofolio.destroy', encrypt($portofolio->id)) }}" method="POST"
+                                class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus portofolio ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" title="Hapus Portofolio">

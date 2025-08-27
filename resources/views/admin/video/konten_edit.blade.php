@@ -9,8 +9,8 @@
                         <h3 class="card-title">Edit Konten Video</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.video.konten.update', [$video->id, $konten->id]) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('admin.video.konten.update', [encrypt($video->id), encrypt($konten->id)]) }}"
+                            method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -67,7 +67,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save"></i> Update Konten
                                 </button>
-                                <a href="{{ route('admin.video.konten', $video->id) }}" class="btn btn-secondary">
+                                <a href="{{ route('admin.video.konten', encrypt($video->id)) }}" class="btn btn-secondary">
                                     <i class="fas fa-arrow-left"></i> Batal
                                 </a>
                             </div>

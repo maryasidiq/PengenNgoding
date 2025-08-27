@@ -227,6 +227,36 @@
                 editor.insertHTML(`<pre><code>${selectedText || "/* your code */"}</code></pre>`);
             }
         });
+
+        document.addEventListener("trix-attachment-add", function (event) {
+            let attachment = event.attachment;
+            if (attachment.file) {
+                uploadAttachment(attachment);
+            }
+        });
+
+        function uploadAttachment(attachment) {
+            let formData = new FormData();
+            formData.append("file", attachment.file);
+
+            fetch("{{ route('trix.upload') }}", {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(result => {
+                    attachment.setAttributes({
+                        url: result.url,
+                        href: result.url
+                    })
+                })
+                .catch(error => {
+                    console.error("Upload gagal:", error);
+                });
+        }
     </script>
 
     @stack('scripts')

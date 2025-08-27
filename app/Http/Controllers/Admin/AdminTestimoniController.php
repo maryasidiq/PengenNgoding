@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\testimoniModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class AdminTestimoniController extends Controller
 {
@@ -45,31 +47,51 @@ class AdminTestimoniController extends Controller
             ->with('success', 'Testimoni berhasil ditambahkan!');
     }
 
-    public function edit(testimoniModel $testimoni)
+    public function edit($encryptedId)
     {
-        return view('admin.testimoni.edit', compact('testimoni'));
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $testimoni = testimoniModel::findOrFail($id);
+            return view('admin.testimoni.edit', compact('testimoni'));
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
-    public function update(Request $request, testimoniModel $testimoni)
+    public function update(Request $request, $encryptedId)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:100',
-            'jabatan' => 'nullable|string|max:150',
-            'instansi' => 'nullable|string|max:150',
-            'pesan' => 'required|string',
-        ]);
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $testimoni = testimoniModel::findOrFail($id);
 
-        $testimoni->update($validated);
+            $validated = $request->validate([
+                'nama' => 'required|string|max:100',
+                'jabatan' => 'nullable|string|max:150',
+                'instansi' => 'nullable|string|max:150',
+                'pesan' => 'required|string',
+            ]);
 
-        return redirect()->route('admin.testimoni.index')
-            ->with('success', 'Testimoni berhasil diupdate!');
+            $testimoni->update($validated);
+
+            return redirect()->route('admin.testimoni.index')
+                ->with('success', 'Testimoni berhasil diupdate!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
-    public function destroy(testimoniModel $testimoni)
+    public function destroy($encryptedId)
     {
-        $testimoni->delete();
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $testimoni = testimoniModel::findOrFail($id);
 
-        return redirect()->route('admin.testimoni.index')
-            ->with('success', 'Testimoni berhasil dihapus!');
+            $testimoni->delete();
+
+            return redirect()->route('admin.testimoni.index')
+                ->with('success', 'Testimoni berhasil dihapus!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 }

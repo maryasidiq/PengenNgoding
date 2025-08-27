@@ -40,7 +40,7 @@
                             @forelse($tips as $index => $tip)
                                 <tr>
                                     <td>{{ $tips->firstItem() + $index }}</td>
-                                    <td><a href="{{ route('admin.tips.konten', $tip->id) }}"
+                                    <td><a href="{{ route('admin.tips.konten', encrypt($tip->id)) }}"
                                             class="text-blue-600 hover:underline">{{ $tip->nama }}</a></td>
                                     <td>{{ $tip->kategori }}</td>
                                     <td>{{ $tip->judul }}</td>
@@ -57,15 +57,15 @@
                                     <td>{{ $tip->updated_at->format('d-m-Y H:i') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('tips.detail', $tip->id) }}" class="btn btn-sm btn-info"
+                                            <a href="{{ route('tips.detail', encrypt($tip->id)) }}" class="btn btn-sm btn-info"
                                                 target="_blank" title="Lihat Tips">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ route('admin.tips.edit', $tip) }}" class="btn btn-sm btn-warning"
-                                                title="Edit Tips">
+                                            <a href="{{ route('admin.tips.edit', encrypt($tip->id)) }}"
+                                                class="btn btn-sm btn-warning" title="Edit Tips">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('admin.tips.destroy', $tip) }}" method="POST"
+                                            <form action="{{ route('admin.tips.destroy', encrypt($tip->id)) }}" method="POST"
                                                 class="d-inline"
                                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus tips ini?')">
                                                 @csrf

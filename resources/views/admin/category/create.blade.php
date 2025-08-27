@@ -44,7 +44,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">
-                        <i></i>Simpan
+                        <i class="fas fa-save me-1"></i>Simpan
                     </button>
                     <a href="{{ route('admin.kategori.index') }}" class="btn btn-secondary">Batal</a>
                 </form>

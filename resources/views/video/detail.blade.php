@@ -64,6 +64,10 @@
             /* biar wrap */
             word-break: break-word;
         }
+        .attachment__caption {
+            display: none;
+            /* sembunyikan caption (nama file) */
+        }
     </style>
 </head>
 
@@ -80,7 +84,7 @@
             <!-- session  -->
             @auth
                 <div class="flex justify-end mb-6">
-                    <a href="/admin/artikel/{{ $artikel->id ?? '' }}/edit"
+                    <a href="/admin/video/{{ encrypt($video->id ?? '') }}/edit"
                         class="flex items-center space-x-2 bg-black hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md transition duration-200"
                         title="Edit Artikel">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -121,7 +125,7 @@
                 <ul class="space-y-2 text-sm">
                     @foreach ($bab as $item)
                         <li>
-                            <a href="{{ route('video.bab', ['id' => $video->id, 'bab_id' => $item->id]) }}"
+                            <a href="{{ route('video.bab', ['id' => encrypt($video->id), 'bab_id' => encrypt($item->id)]) }}"
                                 class="block border border-slate-300 rounded p-2 hover:bg-slate-50 font-semibold">
                                 <code class="text-slate-500"><></code> {{ $item->judul }}
                             </a>
@@ -131,7 +135,7 @@
 
             </section>
             <!-- Tautan kembali -->
-            <a href="{{ route('video', ['id' => $video->id]) }}"
+            <a href="{{ route('video', ['id' => encrypt($video->id)]) }}"
                 class="mt-5 inline-block text-blue-500 hover:underline">
                 ← Kembali
             </a>
@@ -145,7 +149,7 @@
             <h2 class="font-semibold text-slate-900 mb-6 text-lg">Terbaru</h2>
             <div class="grid grid-cols-4 gap-6">
                 @foreach ($kontenTerbaru as $konten)
-                    <a href="{{ route('video.bab', ['id' => $konten->video->id, 'bab_id' => $konten->id]) }}"
+                    <a href="{{ route('video.bab', ['id' => encrypt($konten->video->id), 'bab_id' => encrypt($konten->id)]) }}"
                         class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
                         <img src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
                             class="w-full h-28 object-contain" alt="{{ $konten->video->nama }}">

@@ -89,14 +89,25 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Deskripsi Project *</label>
+                            <!-- <div class="mb-3">
+                                <label for="description" class="form-label">Deskripsi Project </label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description"
                                     name="description" rows="4" required>{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> -->
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Deskripsi Project</label>
+                            <input id="description" type="hidden" name="description" value="{{ old('description') }}">
+                            <trix-editor input="description"
+                                class="form-control @error('description') is-invalid @enderror"></trix-editor>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                            
 
                             <div class="mb-3">
                                 <label for="project_url" class="form-label">URL Project</label>

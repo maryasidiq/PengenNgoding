@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\videoModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class AdminVideoController extends Controller
 {
@@ -52,122 +54,186 @@ class AdminVideoController extends Controller
             ->with('success', 'video berhasil ditambahkan!');
     }
 
-    public function edit(videoModel $video)
+    public function edit($encryptedId)
     {
-        return view('admin.video.edit', compact('video'));
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $video = videoModel::findOrFail($id);
+            return view('admin.video.edit', compact('video'));
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
-    public function update(Request $request, videoModel $video)
+    public function update(Request $request, $encryptedId)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'judul' => 'required|string|unique:video,judul,' . $video->id . '|max:255',
-            'short_deskripsi' => 'required|string|max:500',
-            'long_deskripsi' => 'required|string',
-            'kategori' => 'required|string|max:100',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $video = videoModel::findOrFail($id);
 
-        if ($request->hasFile('gambar')) {
+            $validated = $request->validate([
+                'nama' => 'required|string|max:255',
+                'judul' => 'required|string|unique:video,judul,' . $video->id . '|max:255',
+                'short_deskripsi' => 'required|string|max:500',
+                'long_deskripsi' => 'required|string',
+                'kategori' => 'required|string|max:100',
+                'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            if ($request->hasFile('gambar')) {
+                if ($video->gambar) {
+                    Storage::disk('public')->delete($video->gambar);
+                }
+                $imagePath = $request->file('gambar')->store('videos/featured_images', 'public');
+                $validated['gambar'] = $imagePath;
+            }
+
+            $video->update($validated);
+
+            return redirect()->route('admin.video.index')
+                ->with('success', 'Video berhasil diupdate!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
+    }
+
+    public function destroy($encryptedId)
+    {
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $video = videoModel::findOrFail($id);
+
             if ($video->gambar) {
                 Storage::disk('public')->delete($video->gambar);
             }
-            $imagePath = $request->file('gambar')->store('videos/featured_images', 'public');
-            $validated['gambar'] = $imagePath;
+
+            $video->delete();
+
+            return redirect()->route('admin.video.index')
+                ->with('success', 'Video berhasil dihapus!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
         }
-
-        $video->update($validated);
-
-        return redirect()->route('admin.video.index')
-            ->with('success', 'video berhasil diupdate!');
     }
 
-    public function destroy(videoModel $video)
+    public function showKonten($encryptedId)
     {
-        if ($video->gambar) {
-            Storage::disk('public')->delete($video->gambar);
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $video = videoModel::findOrFail($id);
+            $kontens = $video->konten()->paginate(10);
+
+            return view('admin.video.konten', compact('video', 'kontens'));
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
         }
-
-        $video->delete();
-
-        return redirect()->route('admin.video.index')
-            ->with('success', 'video berhasil dihapus!');
     }
 
-    public function showKonten(videoModel $video)
+    public function createKonten($encryptedId)
     {
-        $kontens = $video->konten()->paginate(10);
-
-        return view('admin.video.konten', compact('video', 'kontens'));
-    }
-
-    public function createKonten(videoModel $video)
-    {
-        return view('admin.video.konten_create', compact('video'));
-    }
-
-    public function storeKonten(Request $request, videoModel $video)
-    {
-        $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'video_yt' => 'nullable|url|max:500',
-        ]);
-
-        if ($request->hasFile('gambar')) {
-            $imagePath = $request->file('gambar')->store('video_contents', 'public');
-            $validated['gambar'] = $imagePath;
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $video = videoModel::findOrFail($id);
+            return view('admin.video.konten_create', compact('video'));
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
         }
-
-        $video->konten()->create($validated);
-
-        return redirect()->route('admin.video.konten', $video->id)
-            ->with('success', 'Konten video berhasil ditambahkan!');
     }
 
-    public function editKonten(videoModel $video, $kontenId)
+    public function storeKonten(Request $request, $encryptedId)
     {
-        $konten = $video->konten()->findOrFail($kontenId);
-        return view('admin.video.konten_edit', compact('video', 'konten'));
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $video = videoModel::findOrFail($id);
+
+            $validated = $request->validate([
+                'judul' => 'required|string|max:255',
+                'deskripsi' => 'nullable|string',
+                'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'video_yt' => 'nullable|url|max:500',
+            ]);
+
+            if ($request->hasFile('gambar')) {
+                $imagePath = $request->file('gambar')->store('video_contents', 'public');
+                $validated['gambar'] = $imagePath;
+            }
+
+            $video->konten()->create($validated);
+
+            return redirect()->route('admin.video.konten', encrypt($video->id))
+                ->with('success', 'Konten video berhasil ditambahkan!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
-    public function updateKonten(Request $request, videoModel $video, $kontenId)
+    public function editKonten($encryptedVideoId, $encryptedKontenId)
     {
-        $konten = $video->konten()->findOrFail($kontenId);
+        try {
+            $videoId = Crypt::decrypt($encryptedVideoId);
+            $kontenId = Crypt::decrypt($encryptedKontenId);
 
-        $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'video_yt' => 'nullable|url|max:500',
-        ]);
+            $video = videoModel::findOrFail($videoId);
+            $konten = $video->konten()->findOrFail($kontenId);
 
-        if ($request->hasFile('gambar')) {
+            return view('admin.video.konten_edit', compact('video', 'konten'));
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
+    }
+
+    public function updateKonten(Request $request, $encryptedVideoId, $encryptedKontenId)
+    {
+        try {
+            $videoId = Crypt::decrypt($encryptedVideoId);
+            $kontenId = Crypt::decrypt($encryptedKontenId);
+
+            $video = videoModel::findOrFail($videoId);
+            $konten = $video->konten()->findOrFail($kontenId);
+
+            $validated = $request->validate([
+                'judul' => 'required|string|max:255',
+                'deskripsi' => 'nullable|string',
+                'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'video_yt' => 'nullable|url|max:500',
+            ]);
+
+            if ($request->hasFile('gambar')) {
+                if ($konten->gambar) {
+                    Storage::disk('public')->delete($konten->gambar);
+                }
+                $imagePath = $request->file('gambar')->store('video_contents', 'public');
+                $validated['gambar'] = $imagePath;
+            }
+
+            $konten->update($validated);
+
+            return redirect()->route('admin.video.konten', encrypt($video->id))
+                ->with('success', 'Konten video berhasil diupdate!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
+    }
+
+    public function destroyKonten($encryptedVideoId, $encryptedKontenId)
+    {
+        try {
+            $videoId = Crypt::decrypt($encryptedVideoId);
+            $kontenId = Crypt::decrypt($encryptedKontenId);
+
+            $video = videoModel::findOrFail($videoId);
+            $konten = $video->konten()->findOrFail($kontenId);
+
             if ($konten->gambar) {
                 Storage::disk('public')->delete($konten->gambar);
             }
-            $imagePath = $request->file('gambar')->store('video_contents', 'public');
-            $validated['gambar'] = $imagePath;
+
+            $konten->delete();
+
+            return redirect()->route('admin.video.konten', encrypt($video->id))
+                ->with('success', 'Konten video berhasil dihapus!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
         }
-
-        $konten->update($validated);
-
-        return redirect()->route('admin.video.konten', $video->id)
-            ->with('success', 'Konten video berhasil diupdate!');
-    }
-
-    public function destroyKonten(videoModel $video, $kontenId)
-    {
-        $konten = $video->konten()->findOrFail($kontenId);
-
-        if ($konten->gambar) {
-            Storage::disk('public')->delete($konten->gambar);
-        }
-
-        $konten->delete();
-
-        return redirect()->route('admin.video.konten', $video->id)
-            ->with('success', 'Konten video berhasil dihapus!');
     }
 }

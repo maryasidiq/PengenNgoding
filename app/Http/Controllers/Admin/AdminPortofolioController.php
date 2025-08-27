@@ -7,6 +7,8 @@ use App\Models\portofolioModel;
 use App\Models\portofolioScreenshotModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class AdminPortofolioController extends Controller
 {
@@ -78,79 +80,99 @@ class AdminPortofolioController extends Controller
             ->with('success', 'Portofolio berhasil ditambahkan!');
     }
 
-    public function edit(portofolioModel $portofolio)
+    public function edit($encryptedId)
     {
-        return view('admin.portofolio.edit', compact('portofolio'));
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $portofolio = portofolioModel::findOrFail($id);
+            return view('admin.portofolio.edit', compact('portofolio'));
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
-    public function update(Request $request, portofolioModel $portofolio)
+    public function update(Request $request, $encryptedId)
     {
-        $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'kategori' => 'required|string|max:100',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'link' => 'nullable|url',
-            'dibuat_pada' => 'required|date'
-        ]);
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $portofolio = portofolioModel::findOrFail($id);
 
-        // Handle gambar update
-        if ($request->hasFile('gambar')) {
-            // Delete old gambar
-            if ($portofolio->gambar) {
-                Storage::disk('public')->delete($portofolio->gambar);
+            $validated = $request->validate([
+                'judul' => 'required|string|max:255',
+                'deskripsi' => 'required|string',
+                'kategori' => 'required|string|max:100',
+                'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'link' => 'nullable|url',
+                'dibuat_pada' => 'required|date'
+            ]);
+
+            // Handle gambar update
+            if ($request->hasFile('gambar')) {
+                // Delete old gambar
+                if ($portofolio->gambar) {
+                    Storage::disk('public')->delete($portofolio->gambar);
+                }
+                $gambarPath = $request->file('gambar')->store('portofolio/gambar', 'public');
+                $validated['gambar'] = $gambarPath;
             }
-            $gambarPath = $request->file('gambar')->store('portofolio/gambar', 'public');
-            $validated['gambar'] = $gambarPath;
-        }
 
-        $portofolio->update($validated);
+            $portofolio->update($validated);
 
-        // Handle delete screenshots
-        if ($request->has('delete_screenshots')) {
-            $deleteIds = $request->input('delete_screenshots');
-            foreach ($deleteIds as $id) {
-                $screenshot = portofolioScreenshotModel::find($id);
-                if ($screenshot) {
-                    Storage::disk('public')->delete($screenshot->screenshot);
-                    $screenshot->delete();
+            // Handle delete screenshots
+            if ($request->has('delete_screenshots')) {
+                $deleteIds = $request->input('delete_screenshots');
+                foreach ($deleteIds as $id) {
+                    $screenshot = portofolioScreenshotModel::find($id);
+                    if ($screenshot) {
+                        Storage::disk('public')->delete($screenshot->screenshot);
+                        $screenshot->delete();
+                    }
                 }
             }
-        }
 
-        // Handle new screenshots
-        if ($request->hasFile('screenshots')) {
-            foreach ($request->file('screenshots') as $screenshot) {
-                $screenshotPath = $screenshot->store('portofolio/screenshots', 'public');
-                portofolioScreenshotModel::create([
-                    'portfolio_id' => $portofolio->id,
-                    'screenshot' => $screenshotPath
-                ]);
+            // Handle new screenshots
+            if ($request->hasFile('screenshots')) {
+                foreach ($request->file('screenshots') as $screenshot) {
+                    $screenshotPath = $screenshot->store('portofolio/screenshots', 'public');
+                    portofolioScreenshotModel::create([
+                        'portfolio_id' => $portofolio->id,
+                        'screenshot' => $screenshotPath
+                    ]);
+                }
             }
-        }
 
-        return redirect()->route('admin.portofolio.index')
-            ->with('success', 'Portofolio berhasil diupdate!');
+            return redirect()->route('admin.portofolio.index')
+                ->with('success', 'Portofolio berhasil diupdate!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
-    public function destroy(portofolioModel $portofolio)
+    public function destroy($encryptedId)
     {
-        // Delete thumbnail
-        if (!empty($portofolio->gambar)) {
-            Storage::disk('public')->delete($portofolio->gambar);
-        }
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $portofolio = portofolioModel::findOrFail($id);
 
-        // Delete screenshots
-        foreach ($portofolio->screenshots as $screenshot) {
-            if (!empty($screenshot->screenshot)) {
-                Storage::disk('public')->delete($screenshot->screenshot);
+            // Delete thumbnail
+            if (!empty($portofolio->gambar)) {
+                Storage::disk('public')->delete($portofolio->gambar);
             }
-            $screenshot->delete();
+
+            // Delete screenshots
+            foreach ($portofolio->screenshots as $screenshot) {
+                if (!empty($screenshot->screenshot)) {
+                    Storage::disk('public')->delete($screenshot->screenshot);
+                }
+                $screenshot->delete();
+            }
+
+            $portofolio->delete();
+
+            return redirect()->route('admin.portofolio.index')
+                ->with('success', 'Portofolio berhasil dihapus!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
         }
-
-        $portofolio->delete();
-
-        return redirect()->route('admin.portofolio.index')
-            ->with('success', 'Portofolio berhasil dihapus!');
     }
 }

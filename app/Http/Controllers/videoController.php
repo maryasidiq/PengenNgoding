@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\videoModel;
 use App\Models\videoContentModel;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class videoController extends Controller
 {
@@ -24,49 +26,58 @@ class videoController extends Controller
     }
 
 
-    function detail($id)
+    function detail($encryptedId)
     {
-        $video = videoModel::findOrFail($id);
-        $bab = videoContentModel::where('video_id', $id)->get();
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $video = videoModel::findOrFail($id);
+            $bab = videoContentModel::where('video_id', $id)->get();
 
-        // Ambil 4 konten tips terbaru beserta relasi tips
-        $kontenTerbaru = videoContentModel::with('video')
-            ->orderBy('updated_at', 'desc')
-            ->take(4)
-            ->get()
-            ->map(function ($item) {
-                $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
-                return $item;
-            });
+            // Ambil 4 konten tips terbaru beserta relasi tips
+            $kontenTerbaru = videoContentModel::with('video')
+                ->orderBy('updated_at', 'desc')
+                ->take(4)
+                ->get()
+                ->map(function ($item) {
+                    $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
+                    return $item;
+                });
 
-        return view('video/detail', [
-            'video' => $video,
-            'bab' => $bab,
-            'kontenTerbaru' => $kontenTerbaru,
-        ]);
+            return view('video/detail', [
+                'video' => $video,
+                'bab' => $bab,
+                'kontenTerbaru' => $kontenTerbaru,
+            ]);
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
-    function bab($id, $bab_id)
+    function bab($encryptedId, $encryptedBabId)
     {
-        $video = videoModel::with('konten')->findOrFail($id);
-        $bab = videoContentModel::where('id', $bab_id)
-            ->where('video_id', $id)
-            ->firstOrFail();
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $bab_id = Crypt::decrypt($encryptedBabId);
+            $video = videoModel::with('konten')->findOrFail($id);
+            $bab = videoContentModel::where('id', $bab_id)
+                ->where('video_id', $id)
+                ->firstOrFail();
 
-        // Ambil 3 konten terbaru
-        $kontenTerbaru = videoContentModel::latest()->take(3)->get();
+            // Ambil 3 konten terbaru
+            $kontenTerbaru = videoContentModel::latest()->take(3)->get();
 
-        // Konversi video_yt ke embed_url
-        $embedUrl = $this->convertToEmbedUrl($bab->video_yt);
+            // Konversi video_yt ke embed_url
+            $embedUrl = $this->convertToEmbedUrl($bab->video_yt);
 
-
-
-        return view('video/bab', [
-            'video' => $video,
-            'bab' => $bab,
-            'embedUrl' => $embedUrl,
-            'kontenTerbaru' => $kontenTerbaru,
-        ]);
+            return view('video/bab', [
+                'video' => $video,
+                'bab' => $bab,
+                'embedUrl' => $embedUrl,
+                'kontenTerbaru' => $kontenTerbaru,
+            ]);
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
 

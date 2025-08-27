@@ -41,7 +41,7 @@
                                 @forelse($videos as $index => $video)
                                     <tr>
                                         <td>{{ $videos->firstItem() + $index }}</td>
-                                        <td><a href="{{ route('admin.video.konten', $video) }}"
+                                        <td><a href="{{ route('admin.video.konten', encrypt($video->id)) }}"
                                                 class="text-blue-600 hover:underline">{{ $video->nama }}</a></td>
                                         <td>{{ $video->kategori }}</td>
                                         <td>{{ $video->judul }}</td>
@@ -58,16 +58,16 @@
                                         <td>{{ $video->updated_at->format('d-m-Y H:i') }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('video.detail', $video->id) }}"
+                                                <a href="{{ route('video.detail', encrypt($video->id)) }}"
                                                     class="btn btn-sm btn-info" target="_blank"
                                                     title="Lihat Video">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('admin.video.edit', $video) }}"
+                                                <a href="{{ route('admin.video.edit', encrypt($video->id)) }}"
                                                     class="btn btn-sm btn-warning" title="Edit Video">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('admin.video.destroy', $video) }}" method="POST"
+                                                <form action="{{ route('admin.video.destroy', encrypt($video->id)) }}" method="POST"
                                                     class="d-inline"
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus video ini?')">
                                                     @csrf

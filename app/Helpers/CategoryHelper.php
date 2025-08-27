@@ -18,7 +18,7 @@ class CategoryHelper
         $portofolioCategories = portofolioModel::distinct()->pluck('kategori')->filter();
 
         // Ambil kategori dari session (kategori baru yang belum disimpan ke database)
-        $sessionCategories = session('new_categories', []);
+        $sessionCategories = session('temp_categories', []);
 
         $categories = collect()
             ->merge($artikelCategories)
@@ -35,11 +35,11 @@ class CategoryHelper
 
     public static function removeFromSession($category)
     {
-        $newCategories = session('new_categories', []);
+        $newCategories = session('temp_categories', []);
         $key = array_search($category, $newCategories);
         if ($key !== false) {
             unset($newCategories[$key]);
-            session(['new_categories' => array_values($newCategories)]);
+            session(['temp_categories' => array_values($newCategories)]);
         }
     }
 }

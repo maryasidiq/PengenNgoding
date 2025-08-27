@@ -177,9 +177,21 @@
         @if($artikelItems->count() == 0 && $tipsItems->count() == 0 && $videoItems->count() == 0 && $portofolioItems->count() == 0)
             <div class="card shadow">
                 <div class="card-body text-center py-5">
-                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                    <h5 class="text-muted">Tidak ada item dalam kategori ini</h5>
-                    <p class="text-muted">Kategori "{{ $category }}" belum digunakan oleh item apapun.</p>
+                    @if($isTemporary)
+                        <i class="fas fa-clock fa-3x text-warning mb-3"></i>
+                        <h5 class="text-warning">Kategori Sementara</h5>
+                        <p class="text-muted">Kategori "{{ $category }}" disimpan sementara dan akan tersimpan permanen saat
+                            digunakan pada item.</p>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Gunakan kategori ini pada item (artikel, tips, video, atau portofolio) untuk menyimpannya secara
+                            permanen.
+                        </div>
+                    @else
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Tidak ada item dalam kategori ini</h5>
+                        <p class="text-muted">Kategori "{{ $category }}" belum digunakan oleh item apapun.</p>
+                    @endif
                 </div>
             </div>
         @endif

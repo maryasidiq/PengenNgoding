@@ -119,6 +119,11 @@
             /* biar wrap */
             word-break: break-word;
         }
+
+        .attachment__caption {
+            display: none;
+            /* sembunyikan caption (nama file) */
+        }
     </style>
 </head>
 
@@ -133,14 +138,14 @@
         <article class="lg:flex-1 max-w-3xl mx-auto lg:mx-0 pb-10 sm:pb-16 lg:pb-20">
             @auth
                 <div class="mb-4">
-                    <a href="{{ route('admin.tips.konten.edit', ['tip' => $tips->id, 'konten' => $bab->id]) }}"
+                    <a href="{{ route('admin.tips.konten.edit', ['tip' => encrypt($tips->id), 'konten' => encrypt($bab->id)]) }}"
                         class="inline-flex items-center space-x-2 bg-black hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md transition duration-200"
                         title="Edit tips">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414
-                           a2 2 0 112.828 2.828L11.828 15H9v-2.828
-                           l8.586-8.586z" />
+                                                       a2 2 0 112.828 2.828L11.828 15H9v-2.828
+                                                       l8.586-8.586z" />
                         </svg>
                         <span>Edit</span>
                     </a>
@@ -155,7 +160,7 @@
                     {!! $bab->deskripsi !!}
                 </div>
 
-                <a href="{{ route('tips.detail', ['id' => $tips->id]) }}"
+                <a href="{{ route('tips.detail', ['id' => encrypt($tips->id)]) }}"
                     class="mt-5 inline-block text-blue-500 hover:underline">← Kembali ke daftar bab</a>
 
 
@@ -168,7 +173,7 @@
                     <ul class="list-decimal list-inside space-y-2 text-sm text-gray-700 font-semibold block">
                         @foreach ($tips->konten as $item)
                             <li>
-                                <a href="{{ route('tips.bab', ['id' => $tips->id, 'bab_id' => $item->id]) }}"
+                                <a href="{{ route('tips.bab', ['id' => encrypt($tips->id), 'bab_id' => encrypt($item->id)]) }}"
                                     class="hover:text-blue-600 transition-all duration-200">
                                     {{ $item->judul }}
                                 </a>
@@ -190,7 +195,7 @@
                                     <img src="{{ filter_var($konten->tips->gambar, FILTER_VALIDATE_URL) ? $konten->tips->gambar : asset('storage/' . $konten->tips->gambar) }}"
                                         class="w-12 h-12 select-none">
                                 </span>
-                                <a href="{{ route('tips.bab', ['id' => $konten->tips, 'bab_id' => $konten->id]) }}"
+                                <a href="{{ route('tips.bab', ['id' => encrypt($konten->tips->id), 'bab_id' => encrypt($konten->id)]) }}"
                                     class="hover:underline text-gray-700">
                                     {{ $konten->judul }}
                                 </a>
@@ -280,7 +285,7 @@
                 <ul class="list-decimal list-inside space-y-2 text-sm text-gray-700 font-semibold block">
                     @foreach ($tips->konten as $item)
                         <li>
-                            <a href="{{ route('tips.bab', ['id' => $tips->id, 'bab_id' => $item->id]) }}"
+                            <a href="{{ route('tips.bab', ['id' => encrypt($tips->id), 'bab_id' => encrypt($item->id)]) }}"
                                 class="hover:text-blue-600 transition-all duration-200 ">
                                 {{ $item->judul }}
                             </a>
@@ -298,7 +303,7 @@
                                 <img src="{{ filter_var($konten->tips->gambar, FILTER_VALIDATE_URL) ? $konten->tips->gambar : asset('storage/' . $konten->tips->gambar) }}"
                                     class="w-12 h-12 select-none">
                             </span>
-                            <a href="{{ route('tips.bab', ['id' => $konten->tips, 'bab_id' => $konten->id]) }}"
+                            <a href="{{ route('tips.bab', ['id' => encrypt($konten->tips->id), 'bab_id' => encrypt($konten->id)]) }}"
                                 class="hover:underline text-gray-700">
                                 {{ $konten->judul }}
                             </a>

@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <h1 class="h3 mb-4">Tambah Konten Video: {{ $video->judul }}</h1>
 
-        <a href="{{ route('admin.video.konten', $video->id) }}" class="btn btn-secondary mb-3">Kembali ke Daftar
+        <a href="{{ route('admin.video.konten', encrypt($video->id)) }}" class="btn btn-secondary mb-3">Kembali ke Daftar
             Konten</a>
 
         <div class="card shadow">
@@ -14,7 +14,7 @@
                 <h5 class="card-title mb-0">Form Tambah Konten</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.video.konten.store', $video->id) }}" method="POST"
+                <form action="{{ route('admin.video.konten.store', encrypt($video->id)) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
 
@@ -57,7 +57,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Simpan Konten</button>
-                    <a href="{{ route('admin.video.konten', $video->id) }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ route('admin.video.konten', encrypt($video->id)) }}" class="btn btn-secondary">Batal</a>
                 </form>
             </div>
         </div>

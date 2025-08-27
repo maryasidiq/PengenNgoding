@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <h1 class="h3 mb-4">Edit Video</h1>
 
-        <form action="{{ route('admin.video.update', $video) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.video.update', encrypt($video->id)) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

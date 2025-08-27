@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <h1 class="h3 mb-4">Edit Konten Tips: {{ $tip->judul }}</h1>
 
-        <a href="{{ route('admin.tips.konten', $tip->id) }}" class="btn btn-secondary mb-3">Kembali ke Daftar
+        <a href="{{ route('admin.tips.konten', encrypt($tip->id)) }}" class="btn btn-secondary mb-3">Kembali ke Daftar
             Konten</a>
 
         <div class="card shadow">
@@ -14,8 +14,8 @@
                 <h5 class="card-title mb-0">Form Edit Konten</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.tips.konten.update', [$tip->id, $konten->id]) }}" method="POST"
-                    enctype="multipart/form-data">
+                <form action="{{ route('admin.tips.konten.update', [encrypt($tip->id), encrypt($konten->id)]) }}"
+                    method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -55,7 +55,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update Konten</button>
-                    <a href="{{ route('admin.tips.konten', $tip->id) }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ route('admin.tips.konten', encrypt($tip->id)) }}" class="btn btn-secondary">Batal</a>
                 </form>
             </div>
         </div>

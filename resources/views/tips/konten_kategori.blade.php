@@ -64,7 +64,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($konten as $item)
           <div class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block relative">
-            <a href="{{ route('tips.bab', ['id' => $item->tips_id, 'bab_id' => $item->id]) }}">
+            <a href="{{ route('tips.bab', ['id' => encrypt($item->tips_id), 'bab_id' => encrypt($item->id)]) }}">
               <img
                 src="{{ filter_var($item->gambar, FILTER_VALIDATE_URL) ? $item->gambar : asset('storage/' . $item->gambar) }}"
                 class="w-full h-48 object-cover" alt="{{ $item->tips->judul }}">
@@ -80,13 +80,13 @@
 
             @auth
               <div class="absolute top-2 right-2 flex items-center space-x-1">
-                <a href="{{ route('admin.tips.konten.edit', ['tip' => $item->tips->id, 'konten' => $item->id]) }}"
+                <a href="{{ route('admin.tips.konten.edit', ['tip' => encrypt($item->tips->id), 'konten' => encrypt($item->id)]) }}"
                   class="bg-black hover:bg-yellow-600 text-white px-3 py-1 rounded-full text-xs flex items-center space-x-1 shadow transition">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
-                                                                           a2 2 0 112.828 2.828L11.828 15H9v-2.828 
-                                                                           l8.586-8.586z" />
+                                                                                   a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                                                                                   l8.586-8.586z" />
                   </svg>
                   <span>Edit</span>
                 </a>

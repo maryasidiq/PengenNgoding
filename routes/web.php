@@ -16,6 +16,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\berandaController;
 use App\Http\Controllers\TentangKamiController;
+use App\Http\Controllers\TrixUploadController;
 
 //Route Beranda
 Route::get('/', [berandaController::class, 'index'])->name('beranda');
@@ -57,7 +58,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Admin Routes
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('jpr')->name('admin.')->middleware('auth')->group(function () {
     // Dashboard
     Route::get('', [AdminDashboardController::class, 'index'])->name('dashboard');
 
@@ -107,3 +108,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('kategori/{category}', [AdminCategoryController::class, 'destroy'])->name('kategori.destroy');
 
 });
+
+Route::post('/trix-upload', [TrixUploadController::class, 'store'])->name('trix.upload');

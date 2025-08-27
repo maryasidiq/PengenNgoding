@@ -9,8 +9,9 @@
                         <h3 class="card-title">Edit Konten Artikel</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.artikel.konten.update', [$artikel->id, $konten->id]) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form
+                            action="{{ route('admin.artikel.konten.update', ['artikel' => encrypt($artikel->id), 'konten' => encrypt($konten->id)]) }}"
+                            method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -55,7 +56,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save"></i> Update Konten
                                 </button>
-                                <a href="{{ route('admin.artikel.konten', $artikel->id) }}" class="btn btn-secondary">
+                                <a href="{{ route('admin.artikel.konten', encrypt($artikel->id)) }}"
+                                    class="btn btn-secondary">
                                     <i class="fas fa-arrow-left"></i> Batal
                                 </a>
                             </div>

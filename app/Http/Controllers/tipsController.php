@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\tipsModel;
 use App\Models\tipsContentModel;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class tipsController extends Controller
 {
@@ -24,44 +26,55 @@ class tipsController extends Controller
     }
 
 
-    function detail($id)
+    function detail($encryptedId)
     {
-        $tips = tipsModel::findOrFail($id);
-        $bab = tipsContentModel::where('tips_id', $id)->get();
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $tips = tipsModel::findOrFail($id);
+            $bab = tipsContentModel::where('tips_id', $id)->get();
 
-        // Ambil 4 konten tips terbaru beserta relasi tips
-        $kontenTerbaru = tipsContentModel::with('tips')
-            ->orderBy('updated_at', 'desc')
-            ->take(4)
-            ->get()
-            ->map(function ($item) {
-                $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
-                return $item;
-            });
+            // Ambil 4 konten tips terbaru beserta relasi tips
+            $kontenTerbaru = tipsContentModel::with('tips')
+                ->orderBy('updated_at', 'desc')
+                ->take(4)
+                ->get()
+                ->map(function ($item) {
+                    $item->short_deskripsi = strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi;
+                    return $item;
+                });
 
-        return view('tips/detail', [
-            'tips' => $tips,
-            'bab' => $bab,
-            'kontenTerbaru' => $kontenTerbaru,
-        ]);
+            return view('tips/detail', [
+                'tips' => $tips,
+                'bab' => $bab,
+                'kontenTerbaru' => $kontenTerbaru,
+            ]);
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
 
-    function bab($id, $bab_id)
+    function bab($encryptedId, $encryptedBabId)
     {
-        $tips = tipsModel::with('konten')->findOrFail($id);
-        $bab = tipsContentModel::where('id', $bab_id)
-            ->where('tips_id', $id)
-            ->firstOrFail();
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $bab_id = Crypt::decrypt($encryptedBabId);
+            $tips = tipsModel::with('konten')->findOrFail($id);
+            $bab = tipsContentModel::where('id', $bab_id)
+                ->where('tips_id', $id)
+                ->firstOrFail();
 
-        // Ambil 3 konten terbaru
-        $kontenTerbaru = tipsContentModel::latest()->take(3)->get();
+            // Ambil 3 konten terbaru
+            $kontenTerbaru = tipsContentModel::latest()->take(3)->get();
 
-        return view('tips/bab', [
-            'tips' => $tips,
-            'bab' => $bab,
-            'kontenTerbaru' => $kontenTerbaru, // ⬅️ Dikirim ke Blade
-        ]);
+            return view('tips/bab', [
+                'tips' => $tips,
+                'bab' => $bab,
+                'kontenTerbaru' => $kontenTerbaru, // ⬅️ Dikirim ke Blade
+            ]);
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
 

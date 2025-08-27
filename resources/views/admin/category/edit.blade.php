@@ -16,7 +16,7 @@
                 <h5 class="card-title mb-0">Form Edit Kategori</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.kategori.update', $category) }}" method="POST">
+                <form action="{{ route('admin.kategori.update', encrypt($category)) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -58,7 +58,7 @@
             </div>
             <div class="card-body">
                 <p class="text-muted">Menghapus kategori akan menghapus kategori dari semua item yang menggunakannya.</p>
-                <form action="{{ route('admin.kategori.destroy', $category) }}" method="POST"
+                <form action="{{ route('admin.kategori.destroy', encrypt($category)) }}" method="POST"
                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini dari semua item?')">
                     @csrf
                     @method('DELETE')

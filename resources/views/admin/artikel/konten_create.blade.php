@@ -6,7 +6,8 @@
     <div class="container-fluid">
         <h1 class="h3 mb-4">Tambah Konten Artikel: {{ $artikel->judul }}</h1>
 
-        <a href="{{ route('admin.artikel.konten', $artikel->id) }}" class="btn btn-secondary mb-3">Kembali ke Daftar
+        <a href="{{ route('admin.artikel.konten', encrypt($artikel->id)) }}" class="btn btn-secondary mb-3">Kembali ke
+            Daftar
             Konten</a>
 
         <div class="card shadow">
@@ -14,7 +15,7 @@
                 <h5 class="card-title mb-0">Form Tambah Konten</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.artikel.konten.store', $artikel->id) }}" method="POST"
+                <form action="{{ route('admin.artikel.konten.store', encrypt($artikel->id)) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
 

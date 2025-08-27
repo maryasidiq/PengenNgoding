@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <h1 class="h3 mb-4">Edit Tips</h1>
 
-        <form action="{{ route('admin.tips.update', $tip) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.tips.update', encrypt($tip->id)) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

@@ -167,7 +167,8 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($kontenTerbaru as $konten)
           <div class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block relative">
-            <a href="{{ route('artikel.bab', ['id' => $konten->artikel->id, 'bab_id' => $konten->id]) }}">
+            <a
+              href="{{ route('artikel.bab', ['id' => encrypt($konten->artikel->id), 'bab_id' => encrypt($konten->id)]) }}">
               <img
                 src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
                 class="w-full h-48 object-cover" alt="{{ $konten->artikel->nama }}">
@@ -183,13 +184,13 @@
 
             @auth
               <div class="absolute top-2 right-2 flex items-center space-x-1">
-                <a href="{{ route('admin.artikel.konten.edit', ['artikel' => $konten->artikel->id, 'konten' => $konten->id]) }}"
+                <a href="{{ route('admin.artikel.konten.edit', ['artikel' => encrypt($konten->artikel->id), 'konten' => encrypt($konten->id)]) }}"
                   class="bg-black hover:bg-yellow-600 text-white px-3 py-1 rounded-full text-xs flex items-center space-x-1 shadow transition">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
-                                                   a2 2 0 112.828 2.828L11.828 15H9v-2.828 
-                                                   l8.586-8.586z" />
+                                                                           a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                                                                           l8.586-8.586z" />
                   </svg>
                   <span>Edit</span>
                 </a>
@@ -219,7 +220,7 @@
               <li>
                 <a href="{{ $url }}"
                   class="w-8 h-8 flex items-center justify-center rounded border border-blue-700
-                                                                      {{ $kontenTerbaru->currentPage() == $page ? 'bg-blue-900 text-white' : 'text-blue-700 hover:bg-blue-100' }}">
+                                                                                              {{ $kontenTerbaru->currentPage() == $page ? 'bg-blue-900 text-white' : 'text-blue-700 hover:bg-blue-100' }}">
                   {{ $page }}
                 </a>
               </li>
@@ -257,30 +258,31 @@
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
         @foreach ($artikels as $artikel)
           <article class="flex flex-col items-center text-center hover:scale-110 transition">
-            <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
+            <a href="{{ route('artikel.detail', ['id' => encrypt($artikel->id)]) }}"
               class="mb-3 flex items-center justify-center drop-shadow">
               <img
                 src="{{ filter_var($artikel->gambar, FILTER_VALIDATE_URL) ? $artikel->gambar : asset('storage/' . $artikel->gambar) }}"
                 alt="{{ $artikel->nama }} Icon" class="w-12 h-12 select-none">
             </a>
-            <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
+            <a href="{{ route('artikel.detail', ['id' => encrypt($artikel->id)]) }}"
               class="text-sm font-semibold text-gray-900 mb-1 hover:underline">
               {{ $artikel->nama }}
             </a>
 
-            <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}" class="text-gray-600 text-xs max-w-[110px]">
+            <a href="{{ route('artikel.detail', ['id' => encrypt($artikel->id)]) }}"
+              class="text-gray-600 text-xs max-w-[110px]">
               {!! $artikel->short_deskripsi !!}
             </a>
 
             {{-- Tombol Edit (hanya muncul kalau login) --}}
             @auth
-              <a href="{{ route('admin.artikel.edit', $artikel->id) }}"
+              <a href="{{ route('admin.artikel.edit', encrypt($artikel->id)) }}"
                 class="mt-2 inline-flex items-center px-3 py-1 bg-black hover:bg-yellow-600 text-white text-xs font-medium rounded-full shadow transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
-                             a2 2 0 112.828 2.828L11.828 15H9v-2.828 
-                             l8.586-8.586z" />
+                                                     a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                                                     l8.586-8.586z" />
                 </svg>
                 Edit
               </a>

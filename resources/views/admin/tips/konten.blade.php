@@ -8,7 +8,7 @@
 
         <a href="{{ route('admin.tips.index') }}" class="btn btn-secondary mb-3">Kembali ke Daftar Tips</a>
 
-        <a href="{{ route('admin.tips.konten.create', $tip->id) }}" class="btn btn-success mb-3">Tambah Konten</a>
+        <a href="{{ route('admin.tips.konten.create', encrypt($tip->id)) }}" class="btn btn-success mb-3">Tambah Konten</a>
 
         <table class="table table-bordered">
             <thead>
@@ -37,16 +37,18 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('tips.bab', ['id' => $tip->id, 'bab_id' => $konten->id]) }}"
+                                <a href="{{ route('tips.bab', ['id' => encrypt($tip->id), 'bab_id' => encrypt($konten->id)]) }}"
                                     class="btn btn-sm btn-info" target="_blank" title="Lihat Konten">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.tips.konten.edit', [$tip->id, $konten->id]) }}"
+                                <a href="{{ route('admin.tips.konten.edit', [encrypt($tip->id), encrypt($konten->id)]) }}"
                                     class="btn btn-sm btn-warning" title="Edit Konten">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.tips.konten.destroy', [$tip->id, $konten->id]) }}" method="POST"
-                                    class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus konten ini?')">
+                                <form
+                                    action="{{ route('admin.tips.konten.destroy', [encrypt($tip->id), encrypt($konten->id)]) }}"
+                                    method="POST" class="d-inline"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus konten ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" title="Hapus Konten">

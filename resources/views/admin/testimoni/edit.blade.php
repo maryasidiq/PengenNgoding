@@ -13,7 +13,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('admin.testimoni.update', $testimoni->id) }}" method="POST">
+                <form action="{{ route('admin.testimoni.update', encrypt($testimoni->id)) }}" method="POST">
                     @csrf
                     @method('PUT')
 

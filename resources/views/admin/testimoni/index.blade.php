@@ -56,12 +56,12 @@
                                     <td>{{ \Illuminate\Support\Str::limit($testimoni->pesan, 700) }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('admin.testimoni.edit', $testimoni) }}"
+                                            <a href="{{ route('admin.testimoni.edit', encrypt($testimoni->id)) }}"
                                                 class="btn btn-sm btn-warning" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('admin.testimoni.destroy', $testimoni->id) }}" method="POST"
-                                                class="d-inline"
+                                            <form action="{{ route('admin.testimoni.destroy', encrypt($testimoni->id)) }}"
+                                                method="POST" class="d-inline"
                                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus testimoni ini?')">
                                                 @csrf
                                                 @method('DELETE')

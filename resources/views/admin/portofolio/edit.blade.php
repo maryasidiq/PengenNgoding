@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <h1 class="h3 mb-4">Edit Portofolio</h1>
 
-        <form action="{{ route('admin.portofolio.update', $portofolio) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.portofolio.update', encrypt($portofolio->id)) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -16,10 +16,10 @@
                     value="{{ old('judul', $portofolio->judul) }}" required>
             </div>
 
-            <div class="mb-3">
+             <div class="mb-3">
                 <label for="deskripsi" class="form-label">Deskripsi</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
-                    required>{{ old('deskripsi', $portofolio->deskripsi) }}</textarea>
+                <input id="deskripsi" type="hidden" name="deskripsi" value="{{ old('deskripsi',$portofolio->deskripsi) }}">
+                <trix-editor input="deskripsi" class="form-control"></trix-editor>
             </div>
 
             <div class="mb-3">

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\clientModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class AdminClientController extends Controller
 {
@@ -47,44 +49,64 @@ class AdminClientController extends Controller
             ->with('success', 'Client berhasil ditambahkan!');
     }
 
-    public function edit(clientModel $client)
+    public function edit($encryptedId)
     {
-        return view('admin.client.edit', compact('client'));
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $client = clientModel::findOrFail($id);
+            return view('admin.client.edit', compact('client'));
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
     }
 
-    public function update(Request $request, clientModel $client)
+    public function update(Request $request, $encryptedId)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $client = clientModel::findOrFail($id);
 
-        // Handle gambar update
-        if ($request->hasFile('gambar')) {
-            // Delete old gambar
+            $validated = $request->validate([
+                'nama' => 'required|string|max:255',
+                'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            // Handle gambar update
+            if ($request->hasFile('gambar')) {
+                // Delete old gambar
+                if ($client->gambar) {
+                    Storage::disk('public')->delete($client->gambar);
+                }
+                $gambarPath = $request->file('gambar')->store('clients/logos', 'public');
+                $validated['gambar'] = $gambarPath;
+            }
+
+            $client->update($validated);
+
+            return redirect()->route('admin.client.index')
+                ->with('success', 'Client berhasil diupdate!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
+        }
+    }
+
+    public function destroy($encryptedId)
+    {
+        try {
+            $id = Crypt::decrypt($encryptedId);
+            $client = clientModel::findOrFail($id);
+
+            // Delete gambar
             if ($client->gambar) {
                 Storage::disk('public')->delete($client->gambar);
             }
-            $gambarPath = $request->file('gambar')->store('clients/logos', 'public');
-            $validated['gambar'] = $gambarPath;
+
+            $client->delete();
+
+            return redirect()->route('admin.client.index')
+                ->with('success', 'Client berhasil dihapus!');
+        } catch (DecryptException $e) {
+            abort(404, 'Tautan tidak valid');
         }
-
-        $client->update($validated);
-
-        return redirect()->route('admin.client.index')
-            ->with('success', 'Client berhasil diupdate!');
-    }
-
-    public function destroy(clientModel $client)
-    {
-        // Delete gambar
-        if ($client->gambar) {
-            Storage::disk('public')->delete($client->gambar);
-        }
-
-        $client->delete();
-
-        return redirect()->route('admin.client.index')
-            ->with('success', 'Client berhasil dihapus!');
     }
 }

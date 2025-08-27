@@ -39,8 +39,15 @@
                 @endif
             </form>
 
-
         </div>
+
+        @if(session('temp_categories'))
+            <div class="alert alert-info mb-3">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Informasi:</strong> Kategori dengan badge <span class="badge bg-warning">Sementara</span>
+                akan tersimpan permanen saat digunakan pada item (artikel, tips, video, atau portofolio).
+            </div>
+        @endif
 
         <div class="card shadow">
             <div class="card-header">
@@ -66,20 +73,24 @@
                                             <strong>{{ $category }}</strong>
                                         </td>
                                         <td>
-                                            <span class="badge bg-info">{{ $categoryCounts[$category] ?? 0 }} item</span>
+                                            @if($categoryCounts[$category] ?? 0 > 0)
+                                                <span class="badge bg-info">{{ $categoryCounts[$category] }} item</span>
+                                            @else
+                                                <span class="badge bg-warning">Sementara</span>
+                                            @endif
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('admin.kategori.show', $category) }}"
+                                                <a href="{{ route('admin.kategori.show', encrypt($category)) }}"
                                                     class="btn btn-sm btn-primary">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('admin.kategori.edit', $category) }}"
+                                                <a href="{{ route('admin.kategori.edit', encrypt($category)) }}"
                                                     class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('admin.kategori.destroy', $category) }}" method="POST"
-                                                    class="d-inline"
+                                                <form action="{{ route('admin.kategori.destroy', encrypt($category)) }}"
+                                                    method="POST" class="d-inline"
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini dari semua item?')">
                                                     @csrf
                                                     @method('DELETE')

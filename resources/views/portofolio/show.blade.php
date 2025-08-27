@@ -43,6 +43,47 @@
         html {
             scroll-behavior: smooth;
         }
+
+        .prose ol {
+            list-style-type: decimal;
+            /* angka */
+            margin-left: 1.5rem;
+            /* jarak biar agak masuk */
+            padding-left: 1rem;
+        }
+
+        .prose ul {
+            list-style-type: disc;
+            /* bulatan */
+            margin-left: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            /* abu muda */
+            border: 1px solid #ddd;
+            /* garis tipis */
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            font-family: "Fira Code", "Courier New", monospace;
+            font-size: 14px;
+            color: #212529;
+            /* warna teks */
+            white-space: pre-wrap;
+            /* biar wrap */
+            word-break: break-word;
+        }
+
+        .attachment__caption {
+            display: none;
+            /* sembunyikan caption (nama file) */
+        }
     </style>
 </head>
 
@@ -56,7 +97,7 @@
         class="pt-28 scroll-mt-28 md:pt-32 md:scroll-mt-32 container mx-auto px-4 md:px-8 pb-10 max-w-5xl bg-white shadow-lg rounded-lg relative z-10">
         @auth
             <div class="flex justify-end mb-6">
-                <a href="/admin/portofolio/{{ $portofolio->id ?? '' }}/edit"
+                <a href="/admin/portofolio/{{ encrypt($portofolio->id ?? '') }}/edit"
                     class="flex items-center space-x-2 bg-black hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md transition duration-200"
                     title="Edit Portofolio">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -83,7 +124,8 @@
         <!-- Social Share Buttons -->
         <div class="mb-6 flex items-center justify-center space-x-3" aria-label="Bagikan">
             <!-- Facebook -->
-            <a href="#" class="bg-[#3b5998] p-2 rounded-full hover:scale-110 transition" aria-label="Facebook">
+            <a href="https://facebook.com/pengenngoding" target="_blank"
+                class="bg-[#3b5998] p-2 rounded-full hover:scale-110 transition" aria-label="Facebook">
                 <svg class="w-5 h-5 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
                         d="M22 12a10 10 0 10-11.5 9.88v-6.99H8v-2.89h2.5V9.41c0-2.46 1.49-3.82 3.77-3.82 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.61.77-1.61 1.56v1.88h2.74l-.44 2.89h-2.3v6.99A10 10 0 0022 12z" />
@@ -107,7 +149,7 @@
                 </svg>
             </a>
             <!-- Email -->
-            <a href="mailto:codingindojepara@gmail.com"
+            <a href="mailto:admin@codingindo.id"
                 class="bg-gray-600 p-2 rounded-full hover:scale-110 transition flex items-center justify-center"
                 aria-label="Email">
                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"
@@ -152,7 +194,7 @@
             <h2 id="related-title" class="text-xl font-semibold text-gray-800 mb-4">Related</h2>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 @forelse ($related as $item)
-                    <a href="{{ route('portofolio.show', $item->id) }}"
+                    <a href="{{ route('portofolio.show', encrypt($item->id)) }}"
                         class="block rounded-lg shadow hover:shadow-lg transition bg-white p-4">
                         <img src="{{ Str::startsWith($item->gambar, ['http://', 'https://']) ? $item->gambar : asset('storage/' . $item->gambar) }}"
                             alt="{{ $item->judul }}" class="rounded mb-3 w-full object-cover h-28" loading="lazy" />

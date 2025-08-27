@@ -56,7 +56,7 @@
             @foreach ($portofolios as $portofolio)
                 <div
                     class="relative bg-white rounded-md overflow-hidden shadow-sm hover:shadow-lg transition hover:scale-105">
-                    <a href="{{ route('portofolio.show', $portofolio->id) }}">
+                    <a href="{{ route('portofolio.show', ['id' => encrypt($portofolio->id)]) }}">
                         <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
                             alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover">
                         <div class="px-4 py-3">
@@ -67,7 +67,7 @@
                     {{-- Tombol Edit untuk Admin --}}
                     @auth
                         <div class="absolute top-1 right-1 z-10">
-                            <a href="/admin/portofolio/{{ $portofolio->id ?? '' }}/edit"
+                            <a href="/admin/portofolio/{{ encrypt($portofolio->id) }}/edit"
                                 class="bg-black hover:bg-yellow-600 text-white p-1.5 rounded-full shadow-md flex items-center justify-center transition duration-200"
                                 title="Edit Portofolio">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"

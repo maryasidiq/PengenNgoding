@@ -8,7 +8,8 @@
 
         <a href="{{ route('admin.video.index') }}" class="btn btn-secondary mb-3">Kembali ke Daftar Video</a>
 
-        <a href="{{ route('admin.video.konten.create', $video->id) }}" class="btn btn-success mb-3">Tambah Konten</a>
+        <a href="{{ route('admin.video.konten.create', encrypt($video->id)) }}" class="btn btn-success mb-3">Tambah
+            Konten</a>
 
         <table class="table table-bordered">
             <thead>
@@ -47,15 +48,16 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('video.bab', ['id' => $video->id, 'bab_id' => $konten->id]) }}"
+                                <a href="{{ route('video.bab', ['id' => encrypt($video->id), 'bab_id' => encrypt($konten->id)]) }}"
                                     class="btn btn-sm btn-info" target="_blank" title="Lihat Konten">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.video.konten.edit', [$video->id, $konten->id]) }}"
+                                <a href="{{ route('admin.video.konten.edit', [encrypt($video->id), encrypt($konten->id)]) }}"
                                     class="btn btn-sm btn-warning" title="Edit Konten">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.video.konten.destroy', [$video->id, $konten->id]) }}"
+                                <form
+                                    action="{{ route('admin.video.konten.destroy', [encrypt($video->id), encrypt($konten->id)]) }}"
                                     method="POST" class="d-inline"
                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus konten ini?')">
                                     @csrf

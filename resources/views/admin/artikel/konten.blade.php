@@ -8,7 +8,8 @@
 
         <a href="{{ route('admin.artikel.index') }}" class="btn btn-secondary mb-3">Kembali ke Daftar Artikel</a>
 
-        <a href="{{ route('admin.artikel.konten.create', $artikel->id) }}" class="btn btn-success mb-3">Tambah Konten</a>
+        <a href="{{ route('admin.artikel.konten.create', encrypt($artikel->id)) }}" class="btn btn-success mb-3">Tambah
+            Konten</a>
 
         <table class="table table-bordered">
             <thead>
@@ -37,23 +38,24 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('artikel.bab', ['id' => $artikel->id, 'bab_id' => $konten->id]) }}"
+                                <a href="{{ route('artikel.bab', ['id' => encrypt($artikel->id), 'bab_id' => encrypt($konten->id)]) }}"
                                     class="btn btn-sm btn-info" target="_blank" title="Lihat Konten">
                                     <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ route('admin.artikel.konten.edit', [$artikel->id, $konten->id]) }}"
-                                    class="btn btn-sm btn-warning" title="Edit Konten">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form action="{{ route('admin.artikel.konten.destroy', [$artikel->id, $konten->id]) }}"
-                                    method="POST" class="d-inline"
-                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus konten ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Hapus Konten">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                                    <a href="{{ route('admin.artikel.konten.edit', ['artikel' => encrypt($artikel->id), 'konten' => encrypt($konten->id)]) }}"
+                                        class="btn btn-sm btn-warning" title="Edit Konten">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <form
+                                        action="{{ route('admin.artikel.konten.destroy', ['artikel' => encrypt($artikel->id), 'konten' => encrypt($konten->id)]) }}"
+                                        method="POST" class="d-inline"
+                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus konten ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Hapus Konten">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                             </div>
                         </td>
                     </tr>

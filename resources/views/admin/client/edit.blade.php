@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <h1 class="h3 mb-4">Edit Client</h1>
 
-        <form action="{{ route('admin.client.update', $client) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.client.update', encrypt($client->id)) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
