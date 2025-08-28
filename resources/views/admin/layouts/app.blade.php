@@ -148,6 +148,12 @@
                         <i class="fas fa-tags me-2"></i>Kategori
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.user_management') ? 'active' : '' }}"
+                        href="{{ route('admin.user_management') }}">
+                        <i class="fas fa-user-edit me-2"></i>Edit Profil Saya
+                    </a>
+                </li>
                 <li class="nav-item mt-3">
                     <a class="nav-link text-danger" href="{{ route('beranda') }}">
                         <i class="fas fa-sign-out-alt me-2"></i>Kembali ke Website
@@ -168,7 +174,11 @@
                 </button>
 
                 <div class="ms-auto d-flex align-items-center">
-                    <span class="me-3">Welcome, {{ auth()->check() ? auth()->user()->name : 'Guest' }}</span>
+                    <span class="me-3">Welcome,
+                        <a href="{{ route('admin.user_management') }}" class="text-decoration-none">
+                            {{ auth()->check() ? auth()->user()->name : 'Guest' }}
+                        </a>
+                    </span>
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger btn-sm">

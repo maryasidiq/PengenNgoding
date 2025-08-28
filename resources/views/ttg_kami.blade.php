@@ -9,6 +9,7 @@
     <link rel="icon" href="{{ asset('images/logo_pengen_ngoding.png') }}" type="image/png">
     <title>PengenNgoding - Tentang Kami</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         /* Custom fonts and icons from Heroicons used inline SVG */
         /* For carousel dots */
@@ -36,33 +37,8 @@
 
     @include('partials.header')
 
-    <!-- Mobile Menu -->
-    <div x-show="mobileOpen" x-transition
-        class="md:hidden px-5 pt-4 pb-6 space-y-3 bg-white text-sm font-semibold text-gray-700">
-        <a href="{{ route('beranda') }}" class="block hover:text-indigo-600">BERANDA</a>
-        <div x-data="{ open: false }">
-            <button @click="open = !open"
-                class="w-full text-left flex items-center justify-between hover:text-indigo-600">
-                BLOG
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                    <polyline points="6 9 12 15 18 9" />
-                </svg>
-            </button>
-            <div x-show="open" x-transition class="mt-2 pl-3 space-y-2">
-                <a href="{{ route('artikel') }}" class="block hover:text-indigo-600">Artikel</a>
-                <a href="{{ route('tips') }}" class="block hover:text-indigo-600">Tips</a>
-                <a href="{{ route('video') }}" class="block hover:text-indigo-600">Video</a>
-            </div>
-        </div>
-        <a href="#kerjasama" class="block hover:text-indigo-600">KERJASAMA</a>
-        <a href="#portfolio" class="block hover:text-indigo-600">PORTFOLIO</a>
-        <a href="{{ route('ttg_kami') }}" class="block hover:text-indigo-600">TENTANG KAMI</a>
-    </div>
-    </nav>
-
     <!-- HERO SECTION -->
-    <section class="pt-32 max-w-7xl mx-auto px-4 py-8">
+    <section class="pt-32 max-w-7xl mx-auto px-4 py-8" data-aos="fade-down">
         <!-- Gambar Hero -->
         <div class="overflow-hidden rounded-2xl shadow-md">
             <img src="{{ asset('images//work_space.jpg') }}" alt="Minimalist workspace"
@@ -70,36 +46,24 @@
         </div>
 
         <!-- Icon Sosial -->
-        <div class="flex flex-wrap justify-center items-center gap-4 mt-6">
+        <div class="flex flex-wrap justify-center items-center gap-2 mt-4">
             <!-- Facebook -->
-            <a href="#" class="bg-[#3b5998] p-2 rounded-full hover:scale-110 transition" aria-label="Facebook">
+            <a href="https://facebook.com/pengenngoding" target="_blank"
+                class="bg-[#3b5998] p-2 rounded-full hover:scale-110 transition" aria-label="Facebook">
                 <svg class="w-5 h-5 md:w-6 md:h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
                         d="M22 12a10 10 0 10-11.5 9.88v-6.99H8v-2.89h2.5V9.41c0-2.46 1.49-3.82 3.77-3.82 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.61.77-1.61 1.56v1.88h2.74l-.44 2.89h-2.3v6.99A10 10 0 0022 12z" />
                 </svg>
             </a>
 
-            <!-- Twitter -->
-            <a href="#" class="bg-[#1da1f2] p-2 rounded-full hover:scale-110 transition" aria-label="Twitter">
-                <svg class="w-5 h-5 md:w-6 md:h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <!-- Instagram -->
+            <a href="https://instagram.com/pengenngoding" target="_blank"
+                class="p-2 rounded-full hover:scale-110 transition" aria-label="Instagram"
+                style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
+                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24">
                     <path
-                        d="M22.46 6c-.77.35-1.5.6-2.3.7a4.42 4.42 0 001.95-2.43c-.85.5-1.8.9-2.83 1.1a4.46 4.46 0 00-7.6 4.06A12.7 12.7 0 013 5.18a4.48 4.48 0 001.37 5.94c-.7 0-1.36-.2-1.94-.53v.05a4.46 4.46 0 003.57 4.37c-.3.1-.65.16-1 .16-.25 0-.52-.03-.75-.07a4.46 4.46 0 004.17 3.1A8.95 8.95 0 012 18.58a12.65 12.65 0 006.88 2.01c8.27 0 12.8-6.85 12.8-12.8 0-.2-.01-.42-.02-.63A9.3 9.3 0 0024 6.5a8.8 8.8 0 01-2.54.7z" />
-                </svg>
-            </a>
-
-            <!-- LinkedIn -->
-            <a href="#" class="bg-[#0077b5] p-2 rounded-full hover:scale-110 transition" aria-label="LinkedIn">
-                <svg class="w-5 h-5 md:w-6 md:h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M20 0H4a4 4 0 00-4 4v16a4 4 0 004 4h16a4 4 0 004-4V4a4 4 0 00-4-4zM7.2 19H4.5V9.3H7.2V19zm-1.35-11.7a1.63 1.63 0 110-3.26 1.63 1.63 0 010 3.26zM20 19h-2.7v-4c0-1-1-1.3-1.1-1.3-.6 0-1 0-1 .9V19H11V9.3h2.6v1.3s.5-.9 1.5-1 1.9.3 1.9 2.3V19z" />
-                </svg>
-            </a>
-
-            <!-- Telegram -->
-            <a href="#" class="bg-[#0088cc] p-2 rounded-full hover:scale-110 transition" aria-label="Telegram">
-                <svg class="w-5 h-5 md:w-6 md:h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M9.999 17.9l-.635-4.48 9.237-6.48-11.422 5.6-4.52-1.4c-.965-.3-.94-1.6.04-1.9l19.225-6.2c.88-.3 1.7.6 1.4 1.5l-3.2 13.2c-.2.9-1.2 1.2-1.9.7l-5.1-3.9-2.1 2z" />
+                        d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-3.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z" />
                 </svg>
             </a>
 
@@ -115,30 +79,29 @@
         </div>
     </section>
 
-
     <main
         class="pt-0 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 mb-16 scroll-mt-32">
 
         <!-- Right Column - Gambar Logo -->
-        <aside class="order-1 md:order-2 flex justify-center items-start md:items-center">
+        <aside class="order-1 md:order-2 flex justify-center items-start md:items-center" data-aos="fade-down-left">
             <div class="text-center">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo PengenNgoding" class="w-70 h-auto mx-auto" />
             </div>
         </aside>
 
         <!-- Left Column -->
-        <section class="order-2 md:order-1 space-y-12 text-slate-700">
+        <section class="order-2 md:order-1 space-y-8 md:space-y-12 text-slate-700" data-aos="fade-down-right">
             <!-- Tentang PengenNgoding -->
-            <article class="flex items-start space-x-4">
+            <article class="flex items-start space-x-3 md:space-x-4">
                 <!-- Icon: Academic Cap -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-8 h-8 mt-1 text-[#0863A9]"
+                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 mt-1 text-[#0863A9]"
                     fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M12 14.25c2.623 0 4.75-2.127 4.75-4.75S14.623 4.75 12 4.75 7.25 6.877 7.25 9.5s2.127 4.75 4.75 4.75Zm7.5 2.5c0-2.15-3.584-3.25-7.5-3.25S4.5 14.6 4.5 16.75v1a.75.75 0 0 0 .75.75h13.5a.75.75 0 0 0 .75-.75v-1Z" />
                 </svg>
                 <div>
-                    <h3 class="font-semibold text-[#0863A9] text-xl">Tentang PengenNgoding</h3>
-                    <p class="mt-2 text-base leading-relaxed">
+                    <h3 class="font-semibold text-[#0863A9] text-lg md:text-xl">Tentang PengenNgoding</h3>
+                    <p class="mt-2 text-sm md:text-base leading-relaxed">
                         <strong class="text-slate-900">PengenNgoding</strong> adalah sebuah bentuk kepedulian kami
                         terhadap perkembangan teknologi dan informasi di era perkembangan teknologi yang sangat pesat.
                         PengenNgoding merupakan sebuah wadah belajar bersama untuk saling bertukar informasi demi
@@ -148,16 +111,16 @@
             </article>
 
             <!-- Komunitas Belajar -->
-            <article class="flex items-start space-x-4">
+            <article class="flex items-start space-x-3 md:space-x-4">
                 <!-- Icon: Users -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-8 h-8 mt-1 text-[#0863A9]"
+                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 mt-1 text-[#0863A9]"
                     fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M15.75 6a3.75 3.75 0 1 0-7.5 0 3.75 3.75 0 0 0 7.5 0ZM4.5 18.75v-1.5A3.75 3.75 0 0 1 8.25 13.5h7.5a3.75 3.75 0 0 1 3.75 3.75v1.5a.75.75 0 0 1-.75.75H5.25a.75.75 0 0 1-.75-.75Z" />
                 </svg>
                 <div>
-                    <h3 class="font-semibold text-[#0863A9] text-xl">Komunitas Belajar</h3>
-                    <p class="mt-2 text-base leading-relaxed">
+                    <h3 class="font-semibold text-[#0863A9] text-lg md:text-xl">Komunitas Belajar</h3>
+                    <p class="mt-2 text-sm md:text-base leading-relaxed">
                         Kami yakin dengan komunitas yang kuat daerah menjadi hebat. Kami tidak menggurui tapi ingin
                         berbagi informasi. Mari sebarkan kebaikan dengan ilmu yang bermanfaat. Silakan bergabung
                         bersama kami dan bagikan apa yang kalian punya demi kemajuan Indonesia.
@@ -178,28 +141,32 @@
     </div>
 
     <section
-        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8 mb-20 text-sm text-slate-600">
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-4 sm:px-6 lg:px-8 mb-16 text-sm text-slate-600">
 
         <!-- Kiri: Logo dan Social Media -->
-        <div class="flex flex-col items-center space-y-5">
+        <div class="flex flex-col items-center space-y-5" data-aos="fade-up-right">
             <img src="{{ asset('images/logo pt.png') }}" alt="Logo PT Codingindo Multisolution Digital"
                 class="w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 object-contain" loading="lazy"
                 onerror="this.onerror=null;this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/35e3e0e6-216f-45bb-9766-a6b91d3f61ce.png';" />
 
             <p class="font-semibold text-center text-indigo-900">PT. CODINGINDO MULTISOLUTION DIGITAL</p>
-            <div class="flex space-x-4">
-                <a href="#" class="bg-[#3b5998] p-2 rounded-full hover:scale-110 transition" aria-label="Facebook">
+            <div class="flex space-x-3">
+                <a href="https://facebook.com/pengenngoding" target="_blank"
+                    class="bg-[#3b5998] p-2 rounded-full hover:scale-110 transition" aria-label="Facebook">
                     <svg class="w-5 h-5 md:w-6 md:h-6 fill-white" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24">
                         <path
                             d="M22 12a10 10 0 10-11.5 9.88v-6.99H8v-2.89h2.5V9.41c0-2.46 1.49-3.82 3.77-3.82 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.61.77-1.61 1.56v1.88h2.74l-.44 2.89h-2.3v6.99A10 10 0 0022 12z" />
                     </svg>
                 </a>
-                <a href="#" class="bg-[#1da1f2] p-2 rounded-full hover:scale-110 transition" aria-label="Twitter">
-                    <svg class="w-5 h-5 md:w-6 md:h-6 fill-white" xmlns="http://www.w3.org/2000/svg"
+                <!-- Instagram -->
+                <a href="https://instagram.com/pengenngoding" target="_blank"
+                    class="p-2 rounded-full hover:scale-110 transition" aria-label="Instagram"
+                    style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
+                    <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24">
                         <path
-                            d="M22.46 6c-.77.35-1.5.6-2.3.7a4.42 4.42 0 001.95-2.43c-.85.5-1.8.9-2.83 1.1a4.46 4.46 0 00-7.6 4.06A12.7 12.7 0 013 5.18a4.48 4.48 0 001.37 5.94c-.7 0-1.36-.2-1.94-.53v.05a4.46 4.46 0 003.57 4.37c-.3.1-.65.16-1 .16-.25 0-.52-.03-.75-.07a4.46 4.46 0 004.17 3.1A8.95 8.95 0 012 18.58a12.65 12.65 0 006.88 2.01c8.27 0 12.8-6.85 12.8-12.8 0-.2-.01-.42-.02-.63A9.3 9.3 0 0024 6.5a8.8 8.8 0 01-2.54.7z" />
+                            d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-3.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z" />
                     </svg>
                 </a>
                 <a href="https://youtube.com/@pengenngoding" aria-label="YouTube PengenNgoding"
@@ -211,7 +178,7 @@
                     </svg>
                 </a>
             </div>
-            <a href="#"
+            <a href="https://wa.me/6282329043833" target="_blank"
                 class="mt-3 inline-block rounded-full bg-green-600 hover:bg-green-700 text-white px-5 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-green-400"
                 aria-label="Hubungi Kami via WhatsApp">
                 Hubungi Kami
@@ -219,19 +186,20 @@
         </div>
 
         <!-- Kanan: Artikel -->
-        <div class="space-y-6 text-sm text-slate-700">
+        <div class="space-y-6 text-sm text-slate-700" data-aos="fade-up-left">
             <!-- Tentang CMD -->
-            <article class="flex items-start space-x-4">
+            <article class="flex items-start space-x-3 md:space-x-4">
                 <!-- Icon: Office Building (Profesional) -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-8 h-8 mt-1 text-[#0863A9]"
+                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 mt-1 text-[#0863A9]"
                     fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M3.75 2A1.75 1.75 0 0 0 2 3.75v16.5c0 .966.784 1.75 1.75 1.75h16.5A1.75 1.75 0 0 0 22 20.25V3.75A1.75 1.75 0 0 0 20.25 2H3.75Zm0 1.5h16.5c.138 0 .25.112.25.25v6.25H3.5V3.75c0-.138.112-.25.25-.25ZM3.5 11h17v9.25a.25.25 0 0 1-.25.25H3.75a.25.25 0 0 1-.25-.25V11ZM7 13.25a.75.75 0 0 1 1.5 0v4.5a.75.75 0 0 1-1.5 0v-4.5Zm4.25 0a.75.75 0 0 1 1.5 0v4.5a.75.75 0 0 1-1.5 0v-4.5Zm4.25 0a.75.75 0 0 1 1.5 0v4.5a.75.75 0 0 1-1.5 0v-4.5Z" />
                 </svg>
 
                 <div class="flex-1">
-                    <h3 class="font-semibold text-[#0863A9] text-xl">CMD ( CODINGINDO MULTISOLUTION DIGITAL )</h3>
-                    <p class="mt-2 text-base leading-relaxed">
+                    <h3 class="font-semibold text-[#0863A9] text-lg md:text-xl">CMD ( CODINGINDO MULTISOLUTION DIGITAL )
+                    </h3>
+                    <p class="mt-2 text-sm md:text-base leading-relaxed">
                         <strong class="text-slate-900">Codingindo Multisolution Digital</strong> adalah layanan
                         profesional kami dalam pengembangan perangkat lunak yang berdiri sejak tahun 2021.
                         Berfokus pada <strong>teknologi informasi dan edukasi</strong>, kami telah mengerjakan berbagai
@@ -244,9 +212,9 @@
 
 
             <!-- Portfolio -->
-            <article class="flex items-start space-x-4">
+            <article class="flex items-start space-x-3 md:space-x-4">
                 <!-- Icon: Folder -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-8 h-8 mt-1 text-[#0863A9]"
+                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 mt-1 text-[#0863A9]"
                     fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M10 2a2 2 0 0 0-2 2v2H6.75A2.75 2.75 0 0 0 4 8.75v10.5A2.75 2.75 0 0 0 6.75 22h10.5A2.75 2.75 0 0 0 20 19.25V8.75A2.75 2.75 0 0 0 17.25 6H16V4a2 2 0 0 0-2-2h-4ZM14 6h-4V4h4v2Zm-2 7.25a.75.75 0 0 1 .75.75v.25h2.5a.75.75 0 0 1 0 1.5h-2.5v.25a.75.75 0 0 1-1.5 0v-.25h-2.5a.75.75 0 0 1 0-1.5h2.5v-.25a.75.75 0 0 1 .75-.75Z" />
@@ -255,23 +223,23 @@
                 <!-- Text & Gallery -->
                 <div class="flex-1">
                     <!-- Title & Description -->
-                    <h3 class="font-semibold text-[#0863A9] text-xl">Portfolio</h3>
-                    <p class="mt-2 text-base leading-relaxed mb-4">
+                    <h3 class="font-semibold text-[#0863A9] text-lg md:text-xl">Portfolio</h3>
+                    <p class="mt-2 text-sm md:text-base leading-relaxed mb-4">
                         Berikut adalah beberapa proyek yang telah kami selesaikan di berbagai sektor industri, termasuk
                         aplikasi edukasi, sistem informasi, serta solusi digital lainnya.
                     </p>
 
                     <!-- Gallery Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                         @foreach($portofolios as $portofolio)
                             <a href="{{ route('portofolio.show', ['id' => encrypt($portofolio->id)]) }}"
                                 class="relative group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
                                 <img src="{{ filter_var($portofolio->gambar, FILTER_VALIDATE_URL) ? $portofolio->gambar : asset('storage/' . $portofolio->gambar) }}"
-                                    alt="{{ $portofolio->judul }}" class="w-full h-48 object-cover" loading="lazy"
+                                    alt="{{ $portofolio->judul }}" class="w-full h-40 md:h-48 object-cover" loading="lazy"
                                     onerror="this.onerror=null;this.src='https://placehold.co/300x120?text=Image+Not+Loaded';" />
                                 <div
                                     class="absolute inset-0 bg-[#07345B]/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                                    <p class="text-sm font-bold text-center px-2">{{ $portofolio->judul }}</p>
+                                    <p class="text-xs md:text-sm font-bold text-center px-2">{{ $portofolio->judul }}</p>
                                 </div>
                             </a>
                         @endforeach
@@ -289,6 +257,9 @@
     @include('partials.footer')
 </body>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 
 </html>

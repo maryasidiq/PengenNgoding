@@ -10,6 +10,7 @@
     <!-- Highlight.js untuk syntax highlight -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
     <style>
@@ -85,7 +86,7 @@
     @include('partials.header')
 
     <!-- Main content container -->
-    <main class="max-w-4xl mx-auto px-6 pt-24 pb-10">
+    <main class="max-w-4xl mx-auto px-6 pt-24 pb-10" data-aos="fade-down">
         <!-- Article card -->
         <article class="bg-white max-w-4xl mx-auto rounded-lg border border-slate-200 shadow-sm p-6">
             <!-- session  -->
@@ -158,7 +159,8 @@
             <div class="grid grid-cols-4 gap-6">
                 @foreach ($kontenTerbaru as $konten)
                     <a href="{{ route('artikel.bab', ['id' => encrypt($konten->artikel->id), 'bab_id' => encrypt($konten->id)]) }}"
-                        class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
+                        class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block"
+                        data-aos="zoom-out-down">
                         <img src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
                             class="w-full h-28 object-contain" alt="{{ $konten->artikel->nama }}">
                         <div class="p-4 flex flex-col gap-2">
@@ -178,5 +180,9 @@
 
 </body>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 
 </html>

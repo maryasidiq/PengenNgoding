@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminTestimoniController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\berandaController;
@@ -57,8 +58,10 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Admin Routes
 Route::prefix('jpr')->name('admin.')->middleware('auth')->group(function () {
+    // User Management
+    Route::get('users', [AdminUserController::class, 'index'])->name('user_management');
+    Route::put('users', [AdminUserController::class, 'update'])->name('user_management.update');
     // Dashboard
     Route::get('', [AdminDashboardController::class, 'index'])->name('dashboard');
 

@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="{{ asset('images/logo_pengen_ngoding.png') }}" type="image/png">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Pengen Ngoding - detail</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -77,7 +78,7 @@
     @include('partials.header')
 
     <!-- Main content container -->
-    <main class="max-w-4xl mx-auto px-6 pt-24 pb-10">
+    <main class="max-w-4xl mx-auto px-6 pt-24 pb-10"data-aos="fade-down">
 
         <!-- Tips card -->
         <article class="bg-white max-w-4xl mx-auto rounded-lg border border-slate-200 shadow-sm p-6">
@@ -149,7 +150,7 @@
             <div class="grid grid-cols-4 gap-6">
                 @foreach ($kontenTerbaru as $konten)
                     <a href="{{ route('tips.bab', ['id' => encrypt($konten->tips->id), 'bab_id' => encrypt($konten->id)]) }}"
-                        class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block">
+                        class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block"data-aos="zoom-out-down">
                         <img
                             src="{{ filter_var($konten->gambar, FILTER_VALIDATE_URL) ? $konten->gambar : asset('storage/' . $konten->gambar) }}"
                             class="w-full h-28 object-contain" alt="{{ $konten->tips->nama }}">
@@ -168,5 +169,8 @@
 
 </body>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 </html>

@@ -1,3 +1,4 @@
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <footer class=" text-white px-6 md:px-8 py-10" style="background-color: #013E59;">
     <div class="container max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between gap-8 text-sm">
         <!-- Info & Contact -->
@@ -220,3 +221,7 @@
         </div>
 
 </footer>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>

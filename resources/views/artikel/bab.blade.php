@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="{{ asset('images/logo_pengen_ngoding.png') }}" type="image/png">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Pengen Ngoding - Artikel 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -135,7 +136,7 @@
     <main class="container mx-auto px-4 md:px-6 lg:flex lg:space-x-8 pt-24 sm:pt-28 max-w-7xl">
 
         <!-- Main content area -->
-        <article class="lg:flex-1 max-w-3xl mx-auto lg:mx-0 pb-10 sm:pb-16 lg:pb-20">
+        <article class="lg:flex-1 max-w-3xl mx-auto lg:mx-0 pb-10 sm:pb-16 lg:pb-20" data-aos="fade-down">
             @auth
                 <div class="mb-4">
                     <a href="{{ route('admin.artikel.konten.edit', ['artikel' => encrypt($artikel->id), 'konten' => encrypt($bab->id)]) }}"
@@ -144,8 +145,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414
-                                               a2 2 0 112.828 2.828L11.828 15H9v-2.828
-                                               l8.586-8.586z" />
+                                                                       a2 2 0 112.828 2.828L11.828 15H9v-2.828
+                                                                       l8.586-8.586z" />
                         </svg>
                         <span>Edit</span>
                     </a>
@@ -168,7 +169,7 @@
             </section>
 
             <!-- Daftar Isi untuk Mobile & Tablet -->
-            <div class="block lg:hidden px-4 pt-4 pb-1">
+            <div class="block lg:hidden px-4 pt-4 pb-1" data-aos="fade-down">
                 <div class="mb-3 border border-gray-200 rounded-md p-4 bg-white shadow-sm">
                     <h2 class="font-semibold text-lg mb-3 border-b border-gray-300 pb-1">Daftar Isi</h2>
                     <ul class="list-decimal list-inside space-y-2 text-sm text-gray-700 font-semibold block">
@@ -186,7 +187,7 @@
 
 
             <!-- Tutorial terbaru untuk Mobile & Tablet -->
-            <div class="block lg:hidden px-4 pt-4 pb-1">
+            <div class="block lg:hidden px-4 pt-4 pb-1" data-aos="fade-down">
                 <div class="mb-3 border border-gray-200 rounded-md p-4 bg-white shadow-sm">
                     <h2 class="font-semibold text-lg border-b border-gray-300 pb-1 mb-3">Tutorial Terbaru</h2>
                     <ul class="space-y-2 text-sm">
@@ -216,7 +217,7 @@
          shadow-lg p-4 overflow-y-auto border-r border-gray-200
          lg:relative lg:translate-x-0 lg:block lg:border-l lg:border-r-0 lg:top-16 lg:max-h-[calc(100vh_-_4rem)] sidebar">
 
-            <div class="mb-6">
+            <div class="mb-6" data-aos="fade-down">
                 <h2 class="font-semibold text-lg mb-3 border-b border-gray-300 pb-1">Daftar Isi</h2>
                 <ul class="list-decimal list-inside space-y-2 text-sm text-gray-700 font-semibold block">
                     @foreach ($artikel->konten as $item)
@@ -230,7 +231,7 @@
                 </ul>
             </div>
 
-            <div class="mb-6">
+            <div class="mb-6" data-aos="fade-down">
                 <h2 class="font-semibold text-lg border-b border-gray-300 pb-1 mb-3">Tutorial Terbaru</h2>
                 <ul class="space-y-2 text-sm">
                     @foreach ($kontenTerbaru as $konten)
@@ -265,6 +266,10 @@
     toggleBtn?.addEventListener("click", () => {
         sidebar.classList.toggle("-translate-x-full");
     });
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
 </script>
 
 </html>

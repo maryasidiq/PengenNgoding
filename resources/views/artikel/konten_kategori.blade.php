@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="{{ asset('images/logo_pengen_ngoding.png') }}" type="image/png">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <title>Pengen Ngoding - Artikel</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -64,7 +65,8 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($konten as $item)
-          <div class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block relative">
+          <div class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block relative"
+            data-aos="zoom-out-down">
             <a href="{{ route('artikel.bab', ['id' => encrypt($item->artikel_id), 'bab_id' => encrypt($item->id)]) }}">
               <img
                 src="{{ filter_var($item->gambar, FILTER_VALIDATE_URL) ? $item->gambar : asset('storage/' . $item->gambar) }}"
@@ -86,8 +88,8 @@
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
-                                                                   a2 2 0 112.828 2.828L11.828 15H9v-2.828 
-                                                                   l8.586-8.586z" />
+                                                                               a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                                                                               l8.586-8.586z" />
                   </svg>
                   <span>Edit</span>
                 </a>
@@ -182,5 +184,9 @@
   });
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 
 </html>

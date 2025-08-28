@@ -2,6 +2,7 @@
 <html lang="id">
 <link rel="icon" href="{{ asset('images/logo_pengen_ngoding.png') }}" type="image/png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <head>
     <meta charset="UTF-8" />
@@ -50,7 +51,7 @@
 
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-6 pt-24 pb-10">
+    <main class="max-w-4xl mx-auto px-6 pt-24 pb-10" data-aos="fade-down">
 
         <section class="mb-16">
             <p class="text-teal-700 font-semibold text-xs uppercase tracking-wide mb-2 select-none">SEMUA KATEGORI</p>
@@ -99,6 +100,9 @@
     @include('partials.footer')
 </body>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 
 </html>

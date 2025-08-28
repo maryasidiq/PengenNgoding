@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="{{ asset('images/logo_pengen_ngoding.png') }}" type="image/png">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <title>Pengen Ngoding - Artikel</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -30,6 +31,10 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+
+    html {
+      scroll-behavior: smooth;
+    }
   </style>
 </head>
 
@@ -41,9 +46,10 @@
 
 
   <!-- Hero Banner -->
-  <section class="relative bg-[#0863A9] text-white pt-24 md:pt-28 pb-12 overflow-visible z-10">
-    <div
-      class="container max-w-7xl px-6 md:px-8 py-3 flex flex-col-reverse md:flex-row items-center justify-between gap-8 mx-auto">
+  <section class="relative bg-[#0863A9] text-white pt-24 md:pt-28 pb-20 md:pb-12 overflow-visible z-10"
+    data-aos="fade-down">
+    <div data-aos="fade-down"
+      class="w-full md:container md:max-w-7xl px-0 md:px-8 py-3 flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:mx-auto">
 
       <!-- Teks -->
       <div class="max-w-xl z-20 text-center md:text-left">
@@ -52,9 +58,10 @@
         <p class="text-white/90 mb-6 max-w-lg text-base md:text-lg mx-auto md:mx-0">
           Mari Belajar Bersama Kami Dan Wujudkan Kebutuhan Aplikasi Anda.
         </p>
-        <button class="bg-white text-blue-800 text-xs rounded-md font-semibold px-4 py-2 hover:bg-blue-100 transition">
+        <a href="#update"
+          class="bg-white text-blue-800 text-xs rounded-md font-semibold px-4 py-2 hover:bg-blue-100 transition inline-block">
           Ayo Belajar
-        </button>
+        </a>
       </div>
 
       <!-- Ilustrasi -->
@@ -71,7 +78,7 @@
   </section>
 
 
-  <main class="px-6 md:px-8 container max-w-7xl mx-auto mt-12 pb-16">
+  <main class="px-6 md:px-8 container max-w-7xl mx-auto mt-12 pb-16" data-aos="fade-down">
 
     <!-- Article Categories -->
     <section class="mb-14">
@@ -80,7 +87,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Card 1 - Frontend -->
-          <a href="{{ route('artikel.kategori.konten', 'frontend') }}" class="block">
+          <a href="{{ route('artikel.kategori.konten', 'frontend') }}" class="block" data-aos="zoom-out-down">
             <article tabindex="0" role="article" aria-label="Frontend Programming"
               class="flex items-center gap-4 rounded-lg bg-gray-100 p-5 cursor-pointer hover:bg-gray-200 transition-shadow custom-shadow focus:ring-2 focus:ring-blue-500 focus:outline-none">
               <div class="flex-shrink-0 w-16 h-16 rounded-md overflow-hidden">
@@ -102,7 +109,7 @@
           </a>
 
           <!-- Card 2 - Android -->
-          <a href="{{ route('artikel.kategori.konten', 'backend') }}" class="block">
+          <a href="{{ route('artikel.kategori.konten', 'backend') }}" class="block" data-aos="zoom-out-down">
             <article tabindex="0" role="article" aria-label="Android Programming"
               class="flex items-center gap-4 rounded-lg bg-gray-100 p-5 cursor-pointer hover:bg-gray-200 transition-shadow custom-shadow focus:ring-2 focus:ring-blue-500 focus:outline-none">
               <div class="flex-shrink-0 w-16 h-16 rounded-md overflow-hidden">
@@ -123,7 +130,7 @@
           </a>
 
           <!-- Card 3 -->
-          <a href="{{ route('artikel.kategori') }}" class="block">
+          <a href="{{ route('artikel.kategori') }}" class="block" data-aos="zoom-out-down">
             <article tabindex="0" role="article" aria-label="Tutorial Lainnya"
               class="flex items-center gap-4 rounded-lg bg-gray-100 p-5 cursor-pointer hover:bg-gray-200 transition-shadow custom-shadow focus:ring-2 focus:ring-blue-500 focus:outline-none">
               <div class="flex-shrink-0 w-16 h-16 rounded-md overflow-hidden">
@@ -152,7 +159,7 @@
     <!-- Latest Articles Section -->
 
     <!-- Section Header -->
-    <section class="max-w-7xl mx-auto">
+    <section id="update" class="max-w-7xl mx-auto scroll-mt-24">
       <header class="mb-6">
         <p class="text-sm font-semibold text-blue-700 mb-2">UPDATE</p>
         <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
@@ -166,7 +173,8 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($kontenTerbaru as $konten)
-          <div class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block relative">
+          <div class="rounded-lg border border-gray-200 overflow-hidden shadow hover:shadow-md transition block relative"
+            data-aos="zoom-out-down">
             <a
               href="{{ route('artikel.bab', ['id' => encrypt($konten->artikel->id), 'bab_id' => encrypt($konten->id)]) }}">
               <img
@@ -188,9 +196,10 @@
                   class="bg-black hover:bg-yellow-600 text-white px-3 py-1 rounded-full text-xs flex items-center space-x-1 shadow transition">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
-                                                                               a2 2 0 112.828 2.828L11.828 15H9v-2.828 
-                                                                               l8.586-8.586z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
+                                                                                                                                                                       a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                                                                                                                                                                       l8.586-8.586z" />
                   </svg>
                   <span>Edit</span>
                 </a>
@@ -209,7 +218,7 @@
 
             {{-- Tombol Previous --}}
             <li>
-              <a href="{{ $kontenTerbaru->previousPageUrl() ?? '#' }}"
+              <a href="{{ $kontenTerbaru->previousPageUrl() ? $kontenTerbaru->previousPageUrl() . '#update' : '#' }}"
                 class="w-8 h-8 flex items-center justify-center rounded border border-blue-700 text-blue-700 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 {{ $kontenTerbaru->onFirstPage() ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}">
                 «
               </a>
@@ -218,9 +227,9 @@
             {{-- Tombol Halaman --}}
             @foreach ($kontenTerbaru->getUrlRange(1, $kontenTerbaru->lastPage()) as $page => $url)
               <li>
-                <a href="{{ $url }}"
+                <a href="{{ $url . '#update' }}"
                   class="w-8 h-8 flex items-center justify-center rounded border border-blue-700
-                                                                                                  {{ $kontenTerbaru->currentPage() == $page ? 'bg-blue-900 text-white' : 'text-blue-700 hover:bg-blue-100' }}">
+                                                  {{ $kontenTerbaru->currentPage() == $page ? 'bg-blue-900 text-white' : 'text-blue-700 hover:bg-blue-100' }}">
                   {{ $page }}
                 </a>
               </li>
@@ -228,7 +237,7 @@
 
             {{-- Tombol Next --}}
             <li>
-              <a href="{{ $kontenTerbaru->nextPageUrl() ?? '#' }}"
+              <a href="{{ $kontenTerbaru->nextPageUrl() ? $kontenTerbaru->nextPageUrl() . '#update' : '#' }}"
                 class="w-8 h-8 flex items-center justify-center rounded border border-blue-700 text-blue-700 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 {{ !$kontenTerbaru->hasMorePages() ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}">
                 »
               </a>
@@ -257,7 +266,7 @@
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
         @foreach ($artikels as $artikel)
-          <article class="flex flex-col items-center text-center hover:scale-110 transition">
+          <article class="flex flex-col items-center text-center hover:scale-110 transition" data-aos="zoom-out-down">
             <a href="{{ route('artikel.detail', ['id' => encrypt($artikel->id)]) }}"
               class="mb-3 flex items-center justify-center drop-shadow">
               <img
@@ -280,9 +289,10 @@
                 class="mt-2 inline-flex items-center px-3 py-1 bg-black hover:bg-yellow-600 text-white text-xs font-medium rounded-full shadow transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
-                                                         a2 2 0 112.828 2.828L11.828 15H9v-2.828 
-                                                         l8.586-8.586z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414 
+                                                                                                                                                 a2 2 0 112.828 2.828L11.828 15H9v-2.828 
+                                                                                                                                                 l8.586-8.586z" />
                 </svg>
                 Edit
               </a>
@@ -371,11 +381,12 @@
       renderPagination();
     }
   });
-
+  AOS.init();
   // Initial render
   renderArticles();
   renderPagination();
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 </html>

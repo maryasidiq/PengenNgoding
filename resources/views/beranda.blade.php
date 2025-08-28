@@ -2,6 +2,7 @@
 <html lang="id">
 <link rel="icon" href="{{ asset('images/logo_pengen_ngoding.png') }}" type="image/png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <head>
     <meta charset="UTF-8" />
@@ -47,29 +48,29 @@
     @include('partials.header')
 
     <!-- Hero Section -->
-    <section id="beranda" class="relative bg-cover bg-center bg-no-repeat pt-24 pb-16 scroll-mt-24"
+    <section id="beranda" class="relative bg-cover bg-center bg-no-repeat scroll-mt-24" data-aos="fade-down"
         style="background-image: url('{{ asset('images/work_space.jpg') }}');">
 
         <!-- Overlay Kebiruan -->
         <div class="absolute inset-0 bg-blue-900 opacity-50 mix-blend-multiply"></div>
 
         <!-- Konten -->
-        <div
-            class="relative z-10 max-w-7xl mx-auto px-5 md:px-10 min-h-[500px] flex flex-col md:flex-row items-center md:items-stretch">
+        <div data-aos="fade-down"
+            class="relative z-10 max-w-7xl mx-auto px-5 md:px-10 min-h-screen md:min-h-[600px] flex flex-col md:flex-row items-center md:items-stretch">
 
             <!-- Spacer kiri (desktop only) -->
             <div class="hidden md:block md:w-1/2"></div>
 
             <!-- Konten kanan -->
-            <div class="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-white text-center md:text-left space-y-5
-             min-h-[400px] md:min-h-0">
+            <div class="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-white text-center md:text-left space-y-6
+             min-h-[calc(100vh-6rem)] md:min-h-0 py-16 md:py-0">
 
-                <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight drop-shadow-xl">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-xl">
                     PENGEMBANG APLIKASI <br />
                     <span class="text-indigo-300">DAN EDUKASI</span>
                 </h1>
 
-                <p class="text-sm sm:text-base md:text-lg font-light drop-shadow">
+                <p class="text-base sm:text-lg md:text-lg font-light drop-shadow">
                     Mari Belajar bersama kami dan Wujudkan kebutuhan aplikasi anda
                 </p>
 
@@ -94,7 +95,8 @@
 
     <!-- Tentang Pengenncoding Section -->
     <section id="tentang-kami" class="relative bg-white py-16 px-5 md:px-10">
-        <div class="max-w-6xl mx-auto bg-[url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/356373e8-9d9f-4ad1-ae15-461ded9cd2dd.png')] bg-no-repeat bg-center bg-cover rounded-lg p-6 sm:p-10 shadow-lg overflow-hidden"
+        <div data-aos="fade-down"
+            class="max-w-6xl mx-auto bg-[url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/356373e8-9d9f-4ad1-ae15-461ded9cd2dd.png')] bg-no-repeat bg-center bg-cover rounded-lg p-6 sm:p-10 shadow-lg overflow-hidden"
             style="background-blend-mode: lighten;">
 
             <!-- Heading -->
@@ -119,7 +121,7 @@
             <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
 
                 <!-- CARD 1 -->
-                <article class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+                <article class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col" data-aos="fade-down-right">
                     <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6f35d8ff-fb88-42b8-8031-410796d69319.png"
                         alt="Gambar 1" loading="lazy" class="w-full object-cover h-52 sm:h-56 md:h-64">
                     <div class="p-6 flex flex-col justify-center h-full">
@@ -142,7 +144,7 @@
                 </article>
 
                 <!-- CARD 2 -->
-                <article class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+                <article class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col" data-aos="fade-down-left">
                     <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e5eeab85-86be-4551-ab7c-422944159dc1.png"
                         alt="Gambar 2" loading="lazy" class="w-full object-cover h-52 sm:h-56 md:h-64">
                     <div class="p-6 flex flex-col justify-center h-full">
@@ -167,7 +169,7 @@
                 </article>
 
                 <!-- CARD 3 -->
-                <article class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+                <article class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col" data-aos="fade-up-right">
                     <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9750d138-92d3-453c-aa3f-6c70213b29d6.png"
                         alt="Gambar 3" loading="lazy" class="w-full object-cover h-52 sm:h-56 md:h-64">
                     <div class="p-6 flex flex-col justify-center h-full">
@@ -187,7 +189,7 @@
                 </article>
 
                 <!-- CARD 4 -->
-                <article class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+                <article class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col" data-aos="fade-up-left">
                     <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0dd85b1f-1fcc-4a04-968b-3d134b3b0441.png"
                         alt="Gambar 4" loading="lazy" class="w-full object-cover h-52 sm:h-56 md:h-64">
                     <div class="p-6 flex flex-col justify-center h-full">
@@ -319,7 +321,7 @@
             <!-- Grid Project dengan Animasi Hover -->
 
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10" data-aos="zoom-in">
                 @foreach ($portofolios as $portofolio)
                     <div class="relative group rounded-lg overflow-hidden shadow-lg">
                         <a href="{{ route('portofolio.show', ['id' => encrypt($portofolio->id)]) }}">
@@ -428,6 +430,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<!-- aos -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     const swiper = new Swiper(".mySwiper", {
         slidesPerView: 1,
@@ -471,6 +475,7 @@
             disableOnInteraction: false,
         },
     });
+    AOS.init();
 </script>
 
 </html>
