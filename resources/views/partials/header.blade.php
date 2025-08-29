@@ -10,7 +10,7 @@
 
     <div class="max-w-7xl mx-auto flex items-center justify-between py-3 px-4 md:py-4 md:px-10">
         <!-- Logo -->
-        <a href="#" class="flex items-center space-x-2">
+        <a href="{{ route('beranda') }}" class="flex items-center space-x-2">
             <img src="{{ url('/') }}/images/logo.png" class="h-8 w-auto md:h-10" alt="Logo Pengen Ngoding">
         </a>
 
