@@ -30,6 +30,15 @@
             background-color: #4F46E5;
             /* Indigo-600 */
         }
+         html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
     </style>
 </head>
 
@@ -41,8 +50,9 @@
     <section class="pt-32 max-w-7xl mx-auto px-4 py-8" data-aos="fade-down">
         <!-- Gambar Hero -->
         <div class="overflow-hidden rounded-2xl shadow-md">
-            <img src="{{ asset('images//work_space.jpg') }}" alt="Minimalist workspace"
-                class="w-full h-[360px] object-cover" loading="lazy" />
+            <img src="{{ asset('images/work_space.jpg') }}" alt="Minimalist workspace"
+     class="w-full max-w-full h-[240px] sm:h-[300px] md:h-[360px] object-cover" loading="lazy" />
+
         </div>
 
         <!-- Icon Sosial -->
@@ -84,10 +94,14 @@
 
         <!-- Right Column - Gambar Logo -->
         <aside class="order-1 md:order-2 flex justify-center items-start md:items-center" data-aos="fade-down-left">
-            <div class="text-center">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo PengenNgoding" class="w-70 h-auto mx-auto" />
-            </div>
-        </aside>
+    <div class="text-center">
+        <img src="{{ asset('images/logo.png') }}" 
+             alt="Logo PengenNgoding" 
+             class="w-32 sm:w-40 md:w-56 lg:w-72 xl:w-96 h-auto mx-auto" />
+    </div>
+</aside>
+
+
 
         <!-- Left Column -->
         <section class="order-2 md:order-1 space-y-8 md:space-y-12 text-slate-700" data-aos="fade-down-right">

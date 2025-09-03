@@ -47,8 +47,8 @@
                 </ul>
             </li>
 
-            <li><a href="#kerjasama" class="hover:text-indigo-600 transition">KERJASAMA</a></li>
-            <li><a href="#portfolio" class="hover:text-indigo-600 transition">PORTFOLIO</a></li>
+            <li><a href="/#kerjasama" class="hover:text-indigo-600 transition">KERJASAMA</a></li>
+            <li><a href="/#portfolio" class="hover:text-indigo-600 transition">PORTFOLIO</a></li>
             <li><a href="{{ route('ttg_kami') }}" class="hover:text-indigo-600 block">TENTANG KAMI</a></li>
         </ul>
     </div>
@@ -72,8 +72,8 @@
                 <a href="{{ route('video') }}" class="block hover:text-indigo-600 py-1">Video</a>
             </div>
         </div>
-        <a href="#kerjasama" class="block hover:text-indigo-600 py-1">KERJASAMA</a>
-        <a href="#portfolio" class="block hover:text-indigo-600 py-1">PORTFOLIO</a>
+        <a href="/#kerjasama" class="block hover:text-indigo-600 py-1">KERJASAMA</a>
+        <a href="/#portfolio" class="block hover:text-indigo-600 py-1">PORTFOLIO</a>
         <a href="{{ route('ttg_kami') }}" class="block hover:text-indigo-600 py-1">TENTANG KAMI</a>
     </div>
 </nav>
